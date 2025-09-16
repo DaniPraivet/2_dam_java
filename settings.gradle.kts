@@ -1,0 +1,1 @@
+rootProject.name = "2dam_java"
