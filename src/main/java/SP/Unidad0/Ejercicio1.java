@@ -1,11 +1,11 @@
-package Unidad0;
+package SP.Unidad0;
 
 import java.io.*;
 
 public class Ejercicio1 {
     // Leer un fichero
     public static void main(String[] args) {
-        String filePath = "src/main/java/Unidad0/Archivos/archivo1.txt";
+        String filePath = "src/main/java/SP/Unidad0/Archivos/archivo1.txt";
         String texto = "";
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {

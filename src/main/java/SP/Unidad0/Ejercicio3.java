@@ -1,4 +1,4 @@
-package Unidad0;
+package SP.Unidad0;
 
 import java.io.*;
 
@@ -7,9 +7,9 @@ public class Ejercicio3 {
     * Leer 2 ficheros de texto y se unirá en un nuevo fichero
     */
     public static void main(String[] args) {
-        String filePath1 = "src/main/java/Unidad0/Archivos/archivo1.txt";
-        String filePath2 = "src/main/java/Unidad0/Archivos/archivo2.txt";
-        String filePath3 = "src/main/java/Unidad0/Archivos/archivo3.txt";
+        String filePath1 = "src/main/java/SP/Unidad0/Archivos/archivo1.txt";
+        String filePath2 = "src/main/java/SP/Unidad0/Archivos/archivo2.txt";
+        String filePath3 = "src/main/java/SP/Unidad0/Archivos/archivo3.txt";
         String texto = "";
         StringBuilder textoFusionado = new StringBuilder();
 
