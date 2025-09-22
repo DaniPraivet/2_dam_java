@@ -15,6 +15,9 @@ public class Ventana extends JFrame {
     JLabel lblEste = new JLabel("Este");
     JLabel lblOeste = new JLabel("Oeste");
     JLabel lblCentro = new JLabel("Centro");
+    JButton btnNorte1 = new JButton("Norte");
+    JButton btnNorte2 = new JButton("Norte");
+    JButton btnNorte3 = new JButton("Norte");
 
 
 
@@ -24,6 +27,9 @@ public class Ventana extends JFrame {
 
     private void initGUI() {
         pnNorte.add(lblNorte, BorderLayout.CENTER);
+        pnNorte.add(btnNorte1);
+        pnNorte.add(btnNorte2);
+        pnNorte.add(btnNorte3);
         this.add(pnNorte, BorderLayout.NORTH);
 
         pnSur.add(lblSur, BorderLayout.CENTER);
@@ -44,7 +50,7 @@ public class Ventana extends JFrame {
         Ventana window = new Ventana();
         // Config ventana
         window.setTitle("Prueba 1");
-        window.setSize(200, 200);
+        window.setSize(600, 600);
         window.setDefaultCloseOperation(EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setLocationRelativeTo(null);
