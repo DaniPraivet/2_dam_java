@@ -30,6 +30,7 @@ public class Ventana extends JFrame {
         pnNorte.add(btnNorte1);
         pnNorte.add(btnNorte2);
         pnNorte.add(btnNorte3);
+        pnNorte.setLayout(new FlowLayout(FlowLayout.CENTER, 15,15));
         this.add(pnNorte, BorderLayout.NORTH);
 
         pnSur.add(lblSur, BorderLayout.CENTER);

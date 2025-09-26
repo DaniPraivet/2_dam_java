@@ -4,22 +4,22 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VentanaFlowLayout extends JFrame {
+    JPanel panelCentral = (JPanel) getContentPane();
+    JLabel lblEtiqueta = new JLabel("Etiqueta");
+    JButton btnEtiqueta = new JButton("Click");
+    JTextField txtTexto = new JTextField(30);
+    JTextArea  txtArea = new JTextArea(10, 10);
 
     public VentanaFlowLayout() {
         initGUI();
     }
 
     private void initGUI() {
-        JPanel panelCentral = (JPanel) getContentPane();
-        JLabel lblEtiqueta = new JLabel("Etiqueta");
-        JButton btnEtiqueta = new JButton("Click");
-        JTextField txtTexto = new JTextField(30);
-        JTextArea  txtArea = new JTextArea(10, 10);
         panelCentral.add(lblEtiqueta);
         panelCentral.add(txtTexto);
         panelCentral.add(btnEtiqueta);
         panelCentral.add(txtArea);
-        panelCentral.setLayout(new FlowLayout(FlowLayout.CENTER, 10,7));
+        panelCentral.setLayout(new FlowLayout(FlowLayout.CENTER, 15,15));
         
     }
 
