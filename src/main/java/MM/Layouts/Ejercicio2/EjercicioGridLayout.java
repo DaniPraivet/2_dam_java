@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class EjercicioGridLayout extends JFrame {
-    static JButton[] botones = new JButton[96];
+    static JButton[] botones = new JButton[20];
 
     EjercicioGridLayout(int[] parameters) {
         loadGUI(parameters);

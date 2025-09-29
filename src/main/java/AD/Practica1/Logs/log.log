@@ -4,3 +4,9 @@
 20250925 21:50:49 - I - Comienza ejecución.
 20250925 21:50:51 - I - Fichero copiado a src/main/java/AD/Practica1/Destino
 20250925 21:50:53 - I - Fichero copiado a src/main/java/AD/Practica1/Destino
+20250929 16:50:15 - I - Comienza ejecución.
+20250929 16:50:15 - E - src\main\java\AD\Practica1\Destino\texto_1.txt
+20250929 16:50:15 - E - src\main\java\AD\Practica1\Destino\texto_2.txt
+20250929 16:52:07 - I - Comienza ejecución.
+20250929 16:52:07 - E - java.nio.file.FileAlreadyExistsException: src\main\java\AD\Practica1\Destino\texto_1.txt
+20250929 16:52:07 - E - java.nio.file.FileAlreadyExistsException: src\main\java\AD\Practica1\Destino\texto_2.txt
