@@ -2,6 +2,7 @@ package MM.Layouts.Ejercicio4;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
 public class CardLayoutEjemplo extends JFrame {
     JPanel panelContenedor;
@@ -19,9 +20,9 @@ public class CardLayoutEjemplo extends JFrame {
 
         layout = new CardLayout();
 
-        panel1.setBackground(Color.CYAN);
-        panel2.setBackground(new Color(0x131313));
-        panel3.setBackground(Color.GREEN);
+        panel1.setBackground(new Color(19,19,19));
+        panel2.setBackground(new Color(13, 13, 13));
+        panel3.setBackground(new Color(0,120,0));
 
         panelContenedor.setLayout(layout);
 
@@ -39,5 +40,22 @@ public class CardLayoutEjemplo extends JFrame {
 
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         w.setLocation((d.width - w.getWidth()) / 2, (d.height - w.getHeight()) / 2);
+        while (true) {
+            w.hacerCiclo(w);
+        }
+    }
+
+    private void hacerCiclo(CardLayoutEjemplo w) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(1000);
+            w.setContentPane(panel1);
+            TimeUnit.MILLISECONDS.sleep(1000);
+            w.setContentPane(panel2);
+            System.out.println(panel2.getBackground().toString());
+            TimeUnit.MILLISECONDS.sleep(1000);
+            w.setContentPane(panel3);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
