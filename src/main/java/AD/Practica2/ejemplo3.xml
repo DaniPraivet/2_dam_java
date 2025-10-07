@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<personajes>
+    <personaje>
+        <nombre>Kaya</nombre>
+        <ataque>4</ataque>
+        <defensa>8</defensa>
+        <destreza>3</destreza>
+        <velocidad>8</velocidad>
+    </personaje>
+    <personaje>
+        <nombre>Artemis</nombre>
+        <ataque>5</ataque>
+        <defensa>4</defensa>
+        <destreza>5</destreza>
+        <velocidad>8</velocidad>
+    </personaje>
+    <personaje>
+        <nombre>Bödvar</nombre>
+        <ataque>4</ataque>
+        <defensa>5</defensa>
+        <destreza>5</destreza>
+        <velocidad>6</velocidad>
+    </personaje>
+    <personaje>
+        <nombre>Teros</nombre>
+        <ataque>8</ataque>
+        <defensa>7</defensa>
+        <destreza>3</destreza>
+        <velocidad>4</velocidad>
+    </personaje>
+</personajes>
