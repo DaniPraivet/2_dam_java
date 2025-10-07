@@ -11,7 +11,7 @@ public class EjercicioVentanaPersonalizada extends JFrame {
 
     BorderLayout bLayout;
     FlowLayout fLayout;
-    BoxLayout bxLayout;
+    GridLayout gridLayout;
 
     JPanel pnEste = new JPanel(), pnSur = new JPanel(), pnCentro = new JPanel();
 
@@ -24,19 +24,26 @@ public class EjercicioVentanaPersonalizada extends JFrame {
         bLayout = new BorderLayout();
         panelContenedor.setLayout(bLayout);
 
-        bxLayout = new BoxLayout(pnEste, BoxLayout.Y_AXIS);
-        pnEste.setLayout(bxLayout);
+        gridLayout = new GridLayout(3, 1, 0, 200);
+
+        pnEste.setLayout(gridLayout);
         pnEste.add(btn1);
         pnEste.add(btn2);
         pnEste.add(btn3);
+        panelContenedor.add(pnEste, BorderLayout.EAST);
+
+        fLayout = new FlowLayout(FlowLayout.LEFT, 5, 5);
         pnSur.setLayout(fLayout);
         pnSur.add(btn4);
+        jtf.setColumns(50);
         pnSur.add(jtf);
+        panelContenedor.add(pnSur, BorderLayout.SOUTH);
+
+        textArea.setColumns(50);
+        textArea.setRows(20);
         pnCentro.add(textArea);
 
-        panelContenedor.add(pnEste, BorderLayout.EAST);
-        panelContenedor.add(pnSur, BorderLayout.SOUTH);
-        panelContenedor.add(pnCentro, BorderLayout.NORTH);
+        panelContenedor.add(pnCentro, BorderLayout.CENTER);
     }
     public static void main(String[] args) {
         EjercicioVentanaPersonalizada w = new EjercicioVentanaPersonalizada();
