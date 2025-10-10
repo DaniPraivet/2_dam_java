@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Ventana extends JFrame {
-    JPanel panelPrincipal;
     JPanel alumnos;
     JPanel asignatura;
     JPanel matricula;
@@ -25,6 +24,13 @@ public class Ventana extends JFrame {
         asignatura = new JPanel();
         matricula = new JPanel();
         menu = new JTabbedPane();
+        // Ajustamos ahora el panel de alumnos
+        JTextField txtAlumno = new JTextField("Aquí irá la tabla de alumnos");
+        txtAlumno.setEditable(false);
+        txtAlumno.setBorder(null);
+        txtAlumno.setCursor(null);
+        alumnos.add(txtAlumno);
+
         // Añadimos los iconos que vamos a usar
         iconPapel = new ImageIcon("src/main/java/MM/Layouts/Práctica6/Imagenes/papellapiz.png");
         iconAsignatura = new ImageIcon("src/main/java/MM/Layouts/Práctica6/Imagenes/asignatura.png");
@@ -49,6 +55,7 @@ public class Ventana extends JFrame {
         menu.setIconAt(0, iconAlumno);
         menu.setIconAt(1, iconAsignatura);
         menu.setIconAt(2, iconMatricula);
+
 
     }
 
