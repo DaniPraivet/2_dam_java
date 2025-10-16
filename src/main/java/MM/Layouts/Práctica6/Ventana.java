@@ -4,10 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Ventana extends JFrame {
+    JPanel panelPrincipal;
+    JButton botonPapel;
+    JPanel panelConBoton;
+    JTabbedPane menu;
     JPanel alumnos;
     JPanel asignatura;
     JPanel matricula;
-    JTabbedPane menu;
+    JTabbedPane menuInterior;
     ImageIcon iconPapel;
     ImageIcon iconAlumno;
     ImageIcon iconMatricula;
@@ -23,7 +27,7 @@ public class Ventana extends JFrame {
         alumnos = new JPanel();
         asignatura = new JPanel();
         matricula = new JPanel();
-        menu = new JTabbedPane();
+        menuInterior = new JTabbedPane();
         // Ajustamos ahora el panel de alumnos
         JTextField txtAlumno = new JTextField("Aquí irá la tabla de alumnos");
         txtAlumno.setEditable(false);
@@ -49,14 +53,28 @@ public class Ventana extends JFrame {
         cambioTamanio = iconPapel.getImage().getScaledInstance(48, 48, Image.SCALE_DEFAULT);
         iconPapel = new ImageIcon(cambioTamanio);
         // Creamos las pestañas
-        menu.add("Alumnos", alumnos);
-        menu.add("Asignatura", asignatura);
-        menu.add("Matricula", matricula);
-        menu.setIconAt(0, iconAlumno);
-        menu.setIconAt(1, iconAsignatura);
-        menu.setIconAt(2, iconMatricula);
+        menuInterior.add("Alumnos", alumnos);
+        menuInterior.add("Asignatura", asignatura);
+        menuInterior.add("Matricula", matricula);
+        menuInterior.setIconAt(0, iconAlumno);
+        menuInterior.setIconAt(1, iconAsignatura);
+        menuInterior.setIconAt(2, iconMatricula);
+
+        // Menu superior
+        panelConBoton = new JPanel();
+        botonPapel = new JButton(iconPapel);
+        panelConBoton.add(botonPapel);
+        menu = new JTabbedPane();
+        menu.add("Alumnos", panelConBoton);
+        menu.add("Asignatura", panelConBoton);
+        menu.add("Matricula", panelConBoton);
 
 
+        // Añadir menú a la parte inferior del panel
+        panelPrincipal = new JPanel();
+        panelPrincipal.setLayout(new BorderLayout());
+        panelPrincipal.add(menuInterior, BorderLayout.CENTER);
+        panelPrincipal.add(menu, BorderLayout.NORTH);
     }
 
     public static void main(String[] args) {
@@ -64,6 +82,6 @@ public class Ventana extends JFrame {
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setVisible(true);
         ventana.setSize(800, 600);
-        ventana.setContentPane(ventana.menu);
+        ventana.setContentPane(ventana.panelPrincipal);
     }
 }
