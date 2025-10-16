@@ -7,7 +7,7 @@ public class Principal {
     public static void main(String[] args) {
         generarDatos(10);
         int suma = getSuma();
-        System.out.println("Suma: " + suma);
+        System.out.println("Suma total: " + suma);
     }
 
     public static int getSuma() {
@@ -16,12 +16,15 @@ public class Principal {
             String[] ficheros = {"informatica.txt", "gerencia.txt", "contabilidad.txt", "comercio.txt", "rrhh.txt"};
             String[] ruta = System.getProperty("java.class.path").split(";");
             for (int i = 0; i < 5; i++) {
+                int sumaArchivo = 0;
                 Process pHijo = new ProcessBuilder("java", "-cp", ruta[0], "SP.Unidad1.Ejercicio5.ProgramaContabilidad", ficheros[i], "r").start();
                 BufferedReader br = new BufferedReader(new InputStreamReader(pHijo.getInputStream()));
                 String linea;
                 while ((linea = br.readLine()) != null) {
-                    suma += Integer.parseInt(linea);
+                    sumaArchivo += Integer.parseInt(linea);
                 }
+                System.out.println(ficheros[i] + " -> " + sumaArchivo);
+                suma += sumaArchivo;
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
