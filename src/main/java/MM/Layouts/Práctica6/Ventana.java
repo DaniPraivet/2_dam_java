@@ -7,7 +7,11 @@ public class Ventana extends JFrame {
     JPanel panelPrincipal;
     JButton botonPapel;
     JPanel panelConBoton;
-    JTabbedPane menu;
+    JSplitPane panelDivisorCentral;
+    JMenuBar menuBar;
+    JMenu menuAlumno, menuAsignatura, menuMatricula, menuVista;
+    JCheckBoxMenuItem menuItemVista;
+    JMenuItem menuItemAlumno;
     JPanel alumnos;
     JPanel asignatura;
     JPanel matricula;
@@ -59,22 +63,37 @@ public class Ventana extends JFrame {
         menuInterior.setIconAt(0, iconAlumno);
         menuInterior.setIconAt(1, iconAsignatura);
         menuInterior.setIconAt(2, iconMatricula);
+        panelDivisorCentral = new JSplitPane();
+        panelDivisorCentral.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
+        panelDivisorCentral.setDividerSize(1);
+        panelDivisorCentral.setDividerLocation(30);
+        panelDivisorCentral.setResizeWeight(0.5);
+        panelDivisorCentral.setRightComponent(menuInterior);
+        panelDivisorCentral.setLeftComponent(new JPanel());
 
         // Menu superior
         panelConBoton = new JPanel();
         botonPapel = new JButton(iconPapel);
         panelConBoton.add(botonPapel);
-        menu = new JTabbedPane();
-        menu.add("Alumnos", panelConBoton);
-        menu.add("Asignatura", panelConBoton);
-        menu.add("Matricula", panelConBoton);
-
+        menuBar = new JMenuBar();
+        menuAlumno = new JMenu("Alumnos");
+        menuAsignatura = new JMenu("Asignatura");
+        menuMatricula = new JMenu("Matricula");
+        menuVista = new JMenu("Vista");
+        menuItemAlumno = new JMenuItem("Añadir alumno");
+        menuItemVista = new JCheckBoxMenuItem("Vista alumno");
+        menuAlumno.add(menuItemAlumno);
+        menuVista.add(menuItemVista);
+        menuBar.add(menuAlumno);
+        menuBar.add(menuAsignatura);
+        menuBar.add(menuMatricula);
+        menuBar.add(menuVista);
 
         // Añadir menú a la parte inferior del panel
         panelPrincipal = new JPanel();
         panelPrincipal.setLayout(new BorderLayout());
-        panelPrincipal.add(menuInterior, BorderLayout.CENTER);
-        panelPrincipal.add(menu, BorderLayout.NORTH);
+        panelPrincipal.add(panelDivisorCentral, BorderLayout.CENTER);
+        panelPrincipal.add(menuBar, BorderLayout.NORTH);
     }
 
     public static void main(String[] args) {
