@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation("com.mysql:mysql-connector-j:8.0.31")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
