@@ -1,6 +1,7 @@
 package MM.JavaSwing.Ejercicio2;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.concurrent.TimeUnit;
@@ -23,9 +24,12 @@ public class Main extends JFrame {
 
     void initGUI() {
         setSize(400, 300);
+        JLabel titulo = new JLabel(getSize().getWidth() + "x" + getSize().getHeight());
+        titulo.setFont(new Font("Arial", Font.BOLD, 48));
+        add(titulo, BorderLayout.NORTH);
         addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
-                System.out.println(e.getComponent().getWidth()+"x"+e.getComponent().getHeight());
+                titulo.setText(e.getComponent().getWidth()+"x"+e.getComponent().getHeight());
             }
         });
         setVisible(true);
