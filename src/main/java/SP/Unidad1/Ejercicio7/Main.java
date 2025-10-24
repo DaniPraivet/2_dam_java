@@ -8,30 +8,26 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int[] numeros = getResultadosCalculadora();
-        System.out.println("Resultados calculadora: " + Arrays.toString(numeros));
+        getResultadosCalculadora();
     }
 
-    static int[] getResultadosCalculadora() {
+    static void getResultadosCalculadora() {
         Scanner sc = new Scanner(System.in);
         int n1 = sc.nextInt();
         int n2 = sc.nextInt();
-        String[] operadores = {"aá", "eé", "ií", "oó", "uú"};
+        String[] operadores = {"+", "-", "*", "/"};
         String[] ruta = System.getProperty("java.class.path").split(";");
         try {
             for (int i = 0; i < operadores.length; i++) {
-                int suma = 0;
-                Process pHijo = new ProcessBuilder("java", "-cp", ruta[0], "SP.Unidad1.Ejercicio7.Calculadora", operadores[i]).start();
+                Process pHijo = new ProcessBuilder("java", "-cp", ruta[0], "SP.Unidad1.Ejercicio7.Calculadora", operadores[i], n1 + "-" + n2).start();
                 BufferedReader br = new BufferedReader(new InputStreamReader(pHijo.getInputStream()));
                 String linea;
                 while ((linea = br.readLine()) != null) {
-                    suma += Integer.parseInt(linea);
+                    System.out.println(linea);
                 }
-                suma += suma;
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return new int[]{0, 0};
     }
 }
