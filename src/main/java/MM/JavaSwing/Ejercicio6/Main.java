@@ -50,7 +50,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void initMenu() {
-        menuProyecto.add(menuConstruirDoc);
+        //menuProyecto.add(menuConstruirDoc);
         menuVentana.setFont(new Font("Arial", Font.BOLD, 18));
         menuAbrirVentana = new JMenu("Abrir Ventanas");
         menuAbrirConsola = new JMenuItem("Abrir Consola");
