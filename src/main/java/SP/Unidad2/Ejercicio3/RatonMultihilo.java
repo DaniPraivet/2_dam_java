@@ -1,10 +1,12 @@
 package SP.Unidad2.Ejercicio3;
 
-public class RatonSecuencial {
+import java.util.concurrent.TimeUnit;
+
+public class RatonMultihilo implements Runnable{
     String nombre;
     int tiempoAlimentacion;
 
-    RatonSecuencial(String nombre, int tiempoAlimentacion) {
+    RatonMultihilo(String nombre, int tiempoAlimentacion) {
         this.nombre = nombre;
         this.tiempoAlimentacion = tiempoAlimentacion;
     }
@@ -12,16 +14,19 @@ public class RatonSecuencial {
     public void comer() {
         try {
             System.out.println("El ratón " + this.nombre + " ha empezado a comer.");
-            Thread.sleep(tiempoAlimentacion);
+            TimeUnit.SECONDS.sleep(tiempoAlimentacion);
             System.out.println("El ratón " + this.nombre + " ha terminado de comer.");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
+    @Override
+    public void run() {
+        comer();
+    }
     public static void main(String[] args) {
-        for (int i = 1; i <= 10; i++) {
-            new RatonSecuencial(String.valueOf(i), ((int) Math.random() * 10000)+1).comer();
+        for (int i = 0; i <= 10; i++) {
+            new Thread(new RatonMultihilo(String.valueOf(i), ((int) Math.random() * 10)+1)).start();
         }
     }
 }
