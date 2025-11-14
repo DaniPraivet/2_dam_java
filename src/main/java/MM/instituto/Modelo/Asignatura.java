@@ -1,4 +1,4 @@
-package MM.instituto;
+package MM.instituto.Modelo;
 
 public class Asignatura {
     int id;

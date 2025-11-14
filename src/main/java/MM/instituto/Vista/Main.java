@@ -1,10 +1,10 @@
 package MM.instituto.Vista;
 
 
-import MM.instituto.Alumno;
-import MM.instituto.Asignatura;
+import MM.instituto.Modelo.Alumno;
+import MM.instituto.Modelo.Asignatura;
 import MM.instituto.ControladorBBDD.Controlador;
-import MM.instituto.Matricula;
+import MM.instituto.Modelo.Matricula;
 
 import java.util.List;
 import java.util.Scanner;

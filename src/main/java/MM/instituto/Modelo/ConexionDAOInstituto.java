@@ -2,17 +2,13 @@ package MM.instituto.Modelo;
 
 
 
-import MM.instituto.Alumno;
-import MM.instituto.Asignatura;
-import MM.instituto.Matricula;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConexionDAOInstituto {
     private static final String URL = "jdbc:mysql://localhost:3306/instituto";
-    private static final String USER = "usuario";
+    private static final String USER = "root";
     private static final String PASSWORD = "usuario";
     public static List<Alumno> alumnos = new ArrayList<>();
     public static List<Asignatura> asignaturas = new ArrayList<>();
@@ -20,7 +16,7 @@ public class ConexionDAOInstituto {
 
     public static List<Alumno> obtenerAlumnos() {
         List<Alumno> alumnos = new ArrayList<>();
-        String sql = "SELECT id, nombre, direccion, estado_matricula, carnet_conducir FROM alumnos";
+        String sql = "SELECT id, nombre, direccion, estado_matricula, carnet_conducir FROM alumno";
         try (Connection conn = conectarseBD();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -42,7 +38,7 @@ public class ConexionDAOInstituto {
     public static List<Asignatura> obtenerAsignaturas() {
         try (Connection conexionBD = conectarseBD();
              Statement informe = conexionBD.createStatement();
-             ResultSet conjuntoResultados = informe.executeQuery("SELECT DISTINCT id, nombre, curso FROM asignaturas;")) {
+             ResultSet conjuntoResultados = informe.executeQuery("SELECT DISTINCT id, nombre, curso FROM asignatura;")) {
             while (conjuntoResultados.next()) {
                 int idAsignatura = conjuntoResultados.getInt("id");
                 String nombre = conjuntoResultados.getString("nombre");

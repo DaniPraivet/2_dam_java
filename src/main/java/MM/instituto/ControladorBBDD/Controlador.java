@@ -1,8 +1,8 @@
 package MM.instituto.ControladorBBDD;
 
-import MM.instituto.Alumno;
-import MM.instituto.Asignatura;
-import MM.instituto.Matricula;
+import MM.instituto.Modelo.Alumno;
+import MM.instituto.Modelo.Asignatura;
+import MM.instituto.Modelo.Matricula;
 import MM.instituto.Modelo.ConexionDAOInstituto;
 
 import java.util.Comparator;
