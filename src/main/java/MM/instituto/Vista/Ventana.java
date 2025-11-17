@@ -3,7 +3,6 @@ package MM.instituto.Vista;
 import MM.instituto.Modelo.TablaAlumnosModel;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class Ventana extends JFrame {
