@@ -1,6 +1,7 @@
 package MM.instituto.Vista;
 
 import MM.instituto.Modelo.TablaAlumnosModel;
+import MM.instituto.Modelo.TablaAsignaturasModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ public class Ventana extends JFrame {
     ImageIcon iconAlumno;
     ImageIcon iconMatricula;
     ImageIcon iconAsignatura;
-    JPanel panelTablaAlumnos;
+    JPanel panelTablaAlumnos, panelTablaAsignaturas;
 
 
     public Ventana() {
@@ -36,6 +37,7 @@ public class Ventana extends JFrame {
         matricula = new JPanel();
         menuInterior = new JTabbedPane();
         panelTablaAlumnos = new JPanel();
+        panelTablaAsignaturas = new JPanel();
         // Ajustamos ahora el panel de alumnos
         JTextField txtAlumno = new JTextField("Aquí irá la tabla de alumnos");
         txtAlumno.setEditable(false);
@@ -62,7 +64,7 @@ public class Ventana extends JFrame {
         iconPapel = new ImageIcon(cambioTamanio);
         // Creamos las pestañas
         menuInterior.add("Alumnos", panelTablaAlumnos);
-        menuInterior.add("Asignatura", asignatura);
+        menuInterior.add("Asignatura", panelTablaAsignaturas);
         menuInterior.add("Matricula", matricula);
         menuInterior.setIconAt(0, iconAlumno);
         menuInterior.setIconAt(1, iconAsignatura);
@@ -100,6 +102,7 @@ public class Ventana extends JFrame {
         panelPrincipal.add(menuBar, BorderLayout.NORTH);
 
         iniciarTablaAlumnos();
+        iniciarTablaAsignatura();
     }
 
     private void iniciarTablaAlumnos() {
@@ -108,6 +111,13 @@ public class Ventana extends JFrame {
         JTable tablaAlumnos = new JTable(modeloAlumnos);
         JScrollPane scrollTablaAlumnos = new JScrollPane(tablaAlumnos);
         panelTablaAlumnos.add(scrollTablaAlumnos, BorderLayout.CENTER);
+    }
+
+    private void iniciarTablaAsignatura() {
+        TablaAsignaturasModel modeloAsignatura = new TablaAsignaturasModel();
+        JTable tablaAsignatura = new JTable(modeloAsignatura);
+        JScrollPane scrollTablaAsignatura = new JScrollPane(tablaAsignatura);
+        panelTablaAsignaturas.add(scrollTablaAsignatura, BorderLayout.CENTER);
     }
 
     public static void main(String[] args) {
