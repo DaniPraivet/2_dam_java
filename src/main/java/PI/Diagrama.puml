@@ -1,80 +1,174 @@
 @startgantt
-<style>
-ganttDiagram {
-	task {
-		FontName Helvetica
-		FontColor red
-		FontSize 18
-		FontStyle bold
-		BackGroundColor GreenYellow
-		LineColor blue
-	}
-	milestone {
-		FontColor blue
-		FontSize 25
-		FontStyle italic
-		BackGroundColor yellow
-		LineColor red
-	}
-	note {
-		FontColor DarkGreen
-		FontSize 10
-		LineColor OrangeRed
-	}
-	arrow {
-		FontName Helvetica
-		FontColor red
-		FontSize 18
-		FontStyle bold
-		BackGroundColor GreenYellow
-		LineColor blue
-		LineStyle 8.0;13.0
-		LineThickness 3.0
-	}
-	separator {
-		BackgroundColor lightGreen
-		LineStyle 8.0;3.0
-		LineColor red
-		LineThickness 1.0
-		FontSize 16
-		FontStyle bold
-		FontColor purple
-		Margin 5
-		Padding 20
-	}
-	timeline {
-	    BackgroundColor Bisque
-	}
-	closed {
-		BackgroundColor pink
-		FontColor red
-	}
-}
-</style>
-Project starts the 2020-12-01
 
-[Task1] requires 10 days
-sunday are closed
+' Proyecto
+Project starts at 2025-10-10
+[Project] ends at 2026-06-12
 
-note bottom
-  memo1 ...
-  memo2 ...
-  explanations1 ...
-  explanations2 ...
-end note
+' ===================================================================
+' BLOQUES DE VACACIONES
+' ===================================================================
+[Vacaciones Navidad] starts at 2025-12-20
+[Vacaciones Navidad] lasts 19 days
+[Vacaciones Navidad] is colored in #FFCCCC
 
-[Task2] requires 20 days
-[Task2] starts 10 days after [Task1]'s end
--- Separator title --
-[M1] happens on 5 days after [Task1]'s end
+[Vacaciones Semana Santa] starts at 2026-03-30
+[Vacaciones Semana Santa] lasts 7 days
+[Vacaciones Semana Santa] is colored in #FFF2A8
 
-<style>
-	separator {
-	    LineColor black
-		Margin 0
-		Padding 0
-	}
-</style>
+' ===================================================================
+' 1. ANÁLISIS Y PLANIFICACIÓN
+' ===================================================================
+[Req Funcionales] starts at 2025-10-10
+[Req Funcionales] lasts 28 days
 
--- end --
+[Req No Funcionales] starts at 2025-11-11
+[Req No Funcionales] lasts 21 days
+
+[Estudio Usuarios] starts at 2025-12-02
+[Estudio Usuarios] lasts 21 days
+
+[Análisis Competencia] starts at 2025-12-23
+[Análisis Competencia] lasts 14 days
+
+[Planificación Final] starts at 2026-01-08
+[Planificación Final] lasts 28 days
+
+[Documentación Análisis] starts at 2026-02-09
+[Documentación Análisis] lasts 21 days
+
+[Revisión Final Análisis] starts at 2026-03-02
+[Revisión Final Análisis] lasts 14 days
+
+' ===================================================================
+' 2. DISEÑO
+' ===================================================================
+[Diseño Arquitectura] starts at 2026-03-16
+[Diseño Arquitectura] lasts 21 days
+
+[Diseño BD] starts at 2026-03-16
+[Diseño BD] lasts 21 days
+
+[Diseño API] starts at 2026-03-16
+[Diseño API] lasts 21 days
+
+[Diseño UI/UX] starts at 2026-04-13
+[Diseño UI/UX] lasts 28 days
+
+[Prototipado] starts at 2026-04-13
+[Prototipado] lasts 28 days
+
+' ===================================================================
+' 3. DESARROLLO BACK-END
+' ===================================================================
+[BE Autenticación] starts at 2026-05-11
+[BE Autenticación] lasts 21 days
+
+[BE Gestión Usuarios] starts at 2026-06-01
+[BE Gestión Usuarios] lasts 28 days
+
+[BE Fichaje] starts at 2026-06-29
+[BE Fichaje] lasts 35 days
+
+[BE Panel Admin] starts at 2026-08-10
+[BE Panel Admin] lasts 28 days
+
+[BE RRHH] starts at 2026-09-07
+[BE RRHH] lasts 28 days
+
+[BE Logs y Auditoría] starts at 2026-10-05
+[BE Logs y Auditoría] lasts 14 days
+
+[BE API REST] starts at 2026-10-21
+[BE API REST] lasts 21 days
+
+' ===================================================================
+' 4. DESARROLLO FRONT-END
+' ===================================================================
+[FE Empleados] starts at 2026-06-01
+[FE Empleados] lasts 28 days
+
+[FE RRHH] starts at 2026-06-29
+[FE RRHH] lasts 28 days
+
+[FE Admin] starts at 2026-07-27
+[FE Admin] lasts 28 days
+
+[FE Dashboard] starts at 2026-08-24
+[FE Dashboard] lasts 21 days
+
+[FE Informes] starts at 2026-09-14
+[FE Informes] lasts 21 days
+
+[FE Integración API] starts at 2026-10-05
+[FE Integración API] lasts 28 days
+
+' ===================================================================
+' 5. INFRAESTRUCTURA Y SEGURIDAD
+' ===================================================================
+[Deploy Servidor] starts at 2026-11-02
+[Deploy Servidor] lasts 14 days
+
+[Config BD] starts at 2026-11-02
+[Config BD] lasts 14 days
+
+[Seguridad & Cifrado] starts at 2026-11-16
+[Seguridad & Cifrado] lasts 14 days
+
+[Control Roles] starts at 2026-11-16
+[Control Roles] lasts 14 days
+
+[Monitorización] starts at 2026-11-30
+[Monitorización] lasts 14 days
+
+[Backups] starts at 2026-11-30
+[Backups] lasts 14 days
+
+' ===================================================================
+' 6. TESTING
+' ===================================================================
+[Unit Tests] starts at 2026-11-16
+[Unit Tests] lasts 21 days
+
+[Integración Tests] starts at 2026-12-07
+[Integración Tests] lasts 21 days
+
+[Pruebas Carga] starts at 2026-12-28
+[Pruebas Carga] lasts 14 days
+
+[Pruebas Usabilidad] starts at 2027-01-15
+[Pruebas Usabilidad] lasts 14 days
+
+[Correcciones] starts at 2027-01-29
+[Correcciones] lasts 21 days
+
+' ===================================================================
+' 7. DOCUMENTACIÓN
+' ===================================================================
+[Doc Técnica] starts at 2027-02-19
+[Doc Técnica] lasts 14 days
+
+[Doc API] starts at 2027-02-19
+[Doc API] lasts 14 days
+
+[Manual Usuario] starts at 2027-03-05
+[Manual Usuario] lasts 14 days
+
+[Procedimientos Internos] starts at 2027-03-05
+[Procedimientos Internos] lasts 14 days
+
+' ===================================================================
+' 8. FORMACIÓN Y ENTREGA
+' ===================================================================
+[Formación Administradores] starts at 2027-03-19
+[Formación Administradores] lasts 7 days
+
+[Formación RRHH] starts at 2027-03-26
+[Formación RRHH] lasts 7 days
+
+[Formación Empleados] starts at 2027-04-02
+[Formación Empleados] lasts 7 days
+
+[Entrega Final] starts at 2027-04-09
+[Entrega Final] lasts 7 days
+
 @endgantt
