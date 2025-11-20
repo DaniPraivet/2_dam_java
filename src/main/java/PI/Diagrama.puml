@@ -1,12 +1,12 @@
 @startgantt
 
-' Proyecto
 Project starts at 2025-10-10
 [Project] ends at 2026-06-12
 
 ' ===================================================================
 ' BLOQUES DE VACACIONES
 ' ===================================================================
+
 [Vacaciones Navidad] starts at 2025-12-20
 [Vacaciones Navidad] lasts 19 days
 [Vacaciones Navidad] is colored in #FFCCCC
@@ -16,159 +16,167 @@ Project starts at 2025-10-10
 [Vacaciones Semana Santa] is colored in #FFF2A8
 
 ' ===================================================================
-' 1. ANÁLISIS Y PLANIFICACIÓN
+' 1. ANÁLISIS Y PLANIFICACIÓN  (fin antes de feb 2026)
 ' ===================================================================
+
 [Req Funcionales] starts at 2025-10-10
-[Req Funcionales] lasts 28 days
+[Req Funcionales] lasts 15 days
 
-[Req No Funcionales] starts at 2025-11-11
-[Req No Funcionales] lasts 21 days
+[Req No Funcionales] starts at 2025-10-25
+[Req No Funcionales] lasts 12 days
 
-[Estudio Usuarios] starts at 2025-12-02
-[Estudio Usuarios] lasts 21 days
+[Estudio Usuarios] starts at 2025-11-06
+[Estudio Usuarios] lasts 12 days
 
-[Análisis Competencia] starts at 2025-12-23
-[Análisis Competencia] lasts 14 days
+[Análisis Competencia] starts at 2025-11-20
+[Análisis Competencia] lasts 10 days
 
-[Planificación Final] starts at 2026-01-08
-[Planificación Final] lasts 28 days
+[Planificación Final] starts at 2025-12-01
+[Planificación Final] lasts 14 days
 
-[Documentación Análisis] starts at 2026-02-09
-[Documentación Análisis] lasts 21 days
+[Documentación Análisis] starts at 2025-12-22
+[Documentación Análisis] lasts 10 days
 
-[Revisión Final Análisis] starts at 2026-03-02
-[Revisión Final Análisis] lasts 14 days
-
-' ===================================================================
-' 2. DISEÑO
-' ===================================================================
-[Diseño Arquitectura] starts at 2026-03-16
-[Diseño Arquitectura] lasts 21 days
-
-[Diseño BD] starts at 2026-03-16
-[Diseño BD] lasts 21 days
-
-[Diseño API] starts at 2026-03-16
-[Diseño API] lasts 21 days
-
-[Diseño UI/UX] starts at 2026-04-13
-[Diseño UI/UX] lasts 28 days
-
-[Prototipado] starts at 2026-04-13
-[Prototipado] lasts 28 days
+[Revisión Final Análisis] starts at 2026-01-07
+[Revisión Final Análisis] lasts 8 days
 
 ' ===================================================================
-' 3. DESARROLLO BACK-END
+' 2. DISEÑO  (ene–feb 2026)
 ' ===================================================================
-[BE Autenticación] starts at 2026-05-11
-[BE Autenticación] lasts 21 days
 
-[BE Gestión Usuarios] starts at 2026-06-01
-[BE Gestión Usuarios] lasts 28 days
+[Diseño Arquitectura] starts at 2026-01-16
+[Diseño Arquitectura] lasts 14 days
 
-[BE Fichaje] starts at 2026-06-29
-[BE Fichaje] lasts 35 days
+[Diseño BD] starts at 2026-01-16
+[Diseño BD] lasts 14 days
 
-[BE Panel Admin] starts at 2026-08-10
-[BE Panel Admin] lasts 28 days
+[Diseño API] starts at 2026-01-16
+[Diseño API] lasts 14 days
 
-[BE RRHH] starts at 2026-09-07
-[BE RRHH] lasts 28 days
+[Diseño UI/UX] starts at 2026-02-01
+[Diseño UI/UX] lasts 18 days
 
-[BE Logs y Auditoría] starts at 2026-10-05
-[BE Logs y Auditoría] lasts 14 days
-
-[BE API REST] starts at 2026-10-21
-[BE API REST] lasts 21 days
+[Prototipado] starts at 2026-02-01
+[Prototipado] lasts 18 days
 
 ' ===================================================================
-' 4. DESARROLLO FRONT-END
+' 3. DESARROLLO BACK-END  (feb–abr 2026)
 ' ===================================================================
-[FE Empleados] starts at 2026-06-01
-[FE Empleados] lasts 28 days
 
-[FE RRHH] starts at 2026-06-29
-[FE RRHH] lasts 28 days
+[BE Autenticación] starts at 2026-02-20
+[BE Autenticación] lasts 12 days
 
-[FE Admin] starts at 2026-07-27
-[FE Admin] lasts 28 days
+[BE Gestión Usuarios] starts at 2026-03-05
+[BE Gestión Usuarios] lasts 15 days
 
-[FE Dashboard] starts at 2026-08-24
-[FE Dashboard] lasts 21 days
+[BE Fichaje] starts at 2026-03-24
+[BE Fichaje] lasts 20 days
 
-[FE Informes] starts at 2026-09-14
-[FE Informes] lasts 21 days
+[BE Panel Admin] starts at 2026-04-15
+[BE Panel Admin] lasts 14 days
 
-[FE Integración API] starts at 2026-10-05
-[FE Integración API] lasts 28 days
+[BE RRHH] starts at 2026-04-29
+[BE RRHH] lasts 14 days
 
-' ===================================================================
-' 5. INFRAESTRUCTURA Y SEGURIDAD
-' ===================================================================
-[Deploy Servidor] starts at 2026-11-02
-[Deploy Servidor] lasts 14 days
+[BE Logs y Auditoría] starts at 2026-05-13
+[BE Logs y Auditoría] lasts 8 days
 
-[Config BD] starts at 2026-11-02
-[Config BD] lasts 14 days
-
-[Seguridad & Cifrado] starts at 2026-11-16
-[Seguridad & Cifrado] lasts 14 days
-
-[Control Roles] starts at 2026-11-16
-[Control Roles] lasts 14 days
-
-[Monitorización] starts at 2026-11-30
-[Monitorización] lasts 14 days
-
-[Backups] starts at 2026-11-30
-[Backups] lasts 14 days
+[BE API REST] starts at 2026-05-23
+[BE API REST] lasts 12 days
 
 ' ===================================================================
-' 6. TESTING
+' 4. DESARROLLO FRONT-END  (mar–may 2026, en paralelo con BE)
 ' ===================================================================
-[Unit Tests] starts at 2026-11-16
-[Unit Tests] lasts 21 days
 
-[Integración Tests] starts at 2026-12-07
-[Integración Tests] lasts 21 days
+[FE Empleados] starts at 2026-03-05
+[FE Empleados] lasts 15 days
 
-[Pruebas Carga] starts at 2026-12-28
-[Pruebas Carga] lasts 14 days
+[FE RRHH] starts at 2026-03-24
+[FE RRHH] lasts 15 days
 
-[Pruebas Usabilidad] starts at 2027-01-15
-[Pruebas Usabilidad] lasts 14 days
+[FE Admin] starts at 2026-04-12
+[FE Admin] lasts 15 days
 
-[Correcciones] starts at 2027-01-29
-[Correcciones] lasts 21 days
+[FE Dashboard] starts at 2026-04-29
+[FE Dashboard] lasts 12 days
 
-' ===================================================================
-' 7. DOCUMENTACIÓN
-' ===================================================================
-[Doc Técnica] starts at 2027-02-19
-[Doc Técnica] lasts 14 days
+[FE Informes] starts at 2026-05-13
+[FE Informes] lasts 12 days
 
-[Doc API] starts at 2027-02-19
-[Doc API] lasts 14 days
-
-[Manual Usuario] starts at 2027-03-05
-[Manual Usuario] lasts 14 days
-
-[Procedimientos Internos] starts at 2027-03-05
-[Procedimientos Internos] lasts 14 days
+[FE Integración API] starts at 2026-05-25
+[FE Integración API] lasts 14 days
 
 ' ===================================================================
-' 8. FORMACIÓN Y ENTREGA
+' 5. INFRAESTRUCTURA Y SEGURIDAD (may 2026)
 ' ===================================================================
-[Formación Administradores] starts at 2027-03-19
-[Formación Administradores] lasts 7 days
 
-[Formación RRHH] starts at 2027-03-26
-[Formación RRHH] lasts 7 days
+[Deploy Servidor] starts at 2026-05-10
+[Deploy Servidor] lasts 8 days
 
-[Formación Empleados] starts at 2027-04-02
-[Formación Empleados] lasts 7 days
+[Config BD] starts at 2026-05-10
+[Config BD] lasts 8 days
 
-[Entrega Final] starts at 2027-04-09
-[Entrega Final] lasts 7 days
+[Seguridad & Cifrado] starts at 2026-05-20
+[Seguridad & Cifrado] lasts 8 days
+
+[Control Roles] starts at 2026-05-20
+[Control Roles] lasts 8 days
+
+[Monitorización] starts at 2026-05-30
+[Monitorización] lasts 8 days
+
+[Backups] starts at 2026-05-30
+[Backups] lasts 8 days
+
+' ===================================================================
+' 6. TESTING (may–jun 2026)
+' ===================================================================
+
+[Unit Tests] starts at 2026-05-20
+[Unit Tests] lasts 12 days
+
+[Integración Tests] starts at 2026-06-01
+[Integración Tests] lasts 10 days
+
+[Pruebas Carga] starts at 2026-06-08
+[Pruebas Carga] lasts 6 days
+
+[Pruebas Usabilidad] starts at 2026-06-08
+[Pruebas Usabilidad] lasts 6 days
+
+[Correcciones] starts at 2026-06-14
+[Correcciones] lasts 0 days
+
+' ===================================================================
+' 7. DOCUMENTACIÓN  (jun 2026)
+' ===================================================================
+
+[Doc Técnica] starts at 2026-06-01
+[Doc Técnica] lasts 8 days
+
+[Doc API] starts at 2026-06-01
+[Doc API] lasts 8 days
+
+[Manual Usuario] starts at 2026-06-09
+[Manual Usuario] lasts 6 days
+
+[Procedimientos Internos] starts at 2026-06-09
+[Procedimientos Internos] lasts 6 days
+
+' ===================================================================
+' 8. FORMACIÓN Y ENTREGA  (final antes del 12-jun-2026)
+' ===================================================================
+
+[Formación Administradores] starts at 2026-06-10
+[Formación Administradores] lasts 2 days
+
+[Formación RRHH] starts at 2026-06-10
+[Formación RRHH] lasts 2 days
+
+[Formación Empleados] starts at 2026-06-10
+[Formación Empleados] lasts 2 days
+
+[Entrega Final] starts at 2026-06-12
+[Entrega Final] lasts 0 days
 
 @endgantt

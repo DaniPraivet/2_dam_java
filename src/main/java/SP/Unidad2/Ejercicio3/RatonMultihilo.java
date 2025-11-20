@@ -25,8 +25,23 @@ public class RatonMultihilo implements Runnable{
         comer();
     }
     public static void main(String[] args) {
-        for (int i = 0; i <= 10; i++) {
+        /*for (int i = 0; i <= 10; i++) {
             new Thread(new RatonMultihilo(String.valueOf(i), ((int) Math.random() * 10)+1)).start();
         }
+        */
+
+        Thread th1 = new Thread(new RatonMultihilo(String.valueOf(1), 10));
+        System.out.println(th1.getState());
+
+
+        try {
+            th1.start();
+            TimeUnit.SECONDS.sleep(4);
+            System.out.println(th1.getState());
+        } catch (InterruptedException e) {
+            System.out.println("Error");
+        }
+
+
     }
 }
