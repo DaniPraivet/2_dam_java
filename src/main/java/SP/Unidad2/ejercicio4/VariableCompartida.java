@@ -3,20 +3,24 @@ package SP.Unidad2.ejercicio4;
 
 
 public class VariableCompartida extends Thread {
-    static int variable = 0;
-    int contador;
+    static int contador;
     @Override
     public void run() {
         for (int i = 0; i < 1000; i++) {
-            contador++;
+            incrementarContador();
         }
     }
 
     public static void main(String[] args) {
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
             VariableCompartida v = new VariableCompartida();
             v.start();
         }
+        System.out.println(contador);
+    }
+
+    public synchronized static void incrementarContador() {
+        contador++;
     }
 }
 
