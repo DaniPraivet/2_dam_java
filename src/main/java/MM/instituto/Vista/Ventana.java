@@ -5,8 +5,13 @@ import MM.instituto.Modelo.TablaAsignaturasModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.sql.*;
+// Repara esta clase
 
 public class Ventana extends JFrame {
+    private JTextField usuario;
+    private JPasswordField contrasena;
     JPanel panelPrincipal;
     JButton botonPapel;
     JPanel panelConBoton;
@@ -28,6 +33,55 @@ public class Ventana extends JFrame {
 
     public Ventana() {
         initGUI();
+        iniciarSesion();
+    }
+
+    private void iniciarSesion() {
+        JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
+
+        // Componentes
+        panel.add(new JLabel("Usuario:"));
+        usuario = new JTextField();
+        panel.add(usuario);
+
+        panel.add(new JLabel("Contraseña:"));
+        contrasena = new JPasswordField();
+        panel.add(contrasena);
+
+        JButton loginButton = new JButton("Iniciar Sesión");
+        loginButton.addActionListener(this::loginAction);
+        panel.add(loginButton);
+    }
+
+    private void loginAction(ActionEvent e) {
+        String username = usuario.getText();
+        String password = new String(contrasena.getPassword());
+
+        if (validarLogin(username, password)) {
+            initGUI();
+        } else {
+            JOptionPane.showMessageDialog(this, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private boolean validarLogin(String u, String password) {
+        String url = "jdbc:mysql://localhost:3306/tu_basedatos";
+        String dbUser = "root";
+        String dbPass = "1234";
+
+        String query = "SELECT * FROM usuarios WHERE usuario = ? AND contraseña = ?";
+
+        try (Connection con = DriverManager.getConnection(url, dbUser, dbPass);
+             PreparedStatement stmt = con.prepareStatement(query)) {
+
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al conectar con la BD", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 
     public void initGUI() {
