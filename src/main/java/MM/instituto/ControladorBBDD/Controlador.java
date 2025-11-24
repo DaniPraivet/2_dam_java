@@ -12,12 +12,27 @@ public class Controlador {
 
     // ALUMNOS
     public List<Alumno> obtenerAlumnos() {
-        return ConexionDAOInstituto.obtenerAlumnos();
+        try {
+            return ConexionDAOInstituto.obtenerAlumnos();
+        } catch (Exception e) {
+            System.err.println("Error al obtener alumnos: " + e.getMessage());
+            return List.of(); // Devolver lista vacía en lugar de null
+        }
     }
 
+
     public boolean agregarAlumno(Alumno a) {
+        if (a == null) {
+            System.out.println("Error: Alumno nulo");
+            return false;
+        }
+        if (a.getNombre() == null || a.getNombre().trim().isEmpty()) {
+            System.out.println("Error: Nombre de alumno inválido");
+            return false;
+        }
         return ConexionDAOInstituto.insertarAlumno(a);
     }
+
 
     public void mostrarAlumnosPorNombre() {
         List<Alumno> alumnos = obtenerAlumnos();
@@ -25,7 +40,11 @@ public class Controlador {
         alumnos.forEach(System.out::println);
     }
     public Alumno obtenerAlumnoPorId(int idAlumno) {
-        return ConexionDAOInstituto.obtenerAlumnoPorId(idAlumno);
+        Alumno alumno = ConexionDAOInstituto.obtenerAlumnoPorId(idAlumno);
+        if (alumno == null) {
+            System.out.println("Alumno con ID " + idAlumno + " no encontrado");
+        }
+        return alumno;
     }
 
     // ASIGNATURAS
@@ -40,11 +59,32 @@ public class Controlador {
     public int ultimoIdAsignaturas() {
         List<Asignatura> asignaturas = obtenerAsignaturas();
         if (asignaturas.isEmpty()) return 0;
-        // Suponiendo que la asignatura con mayor id tiene el último id
-        return asignaturas.stream().mapToInt(Asignatura::getId).max().orElse(0);
+        return asignaturas.stream()
+                .mapToInt(Asignatura::getId)
+                .max()
+                .orElse(0);
     }
     public Asignatura obtenerAsignaturaPorId(int idAsignatura) {
         return ConexionDAOInstituto.obtenerAsignatura(idAsignatura);
+    }
+
+    // Obtener promedio de notas por alumno
+    public double obtenerPromedioNotasPorAlumno(int idAlumno) {
+        List<Matricula> matriculas = obtenerMatriculasPorAlumno(idAlumno);
+        if (matriculas.isEmpty()) return 0.0;
+        return matriculas.stream()
+                .mapToDouble(Matricula::getNota)
+                .average()
+                .orElse(0.0);
+    }
+
+    // Obtener asignaturas de un alumno
+    public List<Asignatura> obtenerAsignaturasPorAlumno(int idAlumno) {
+        List<Matricula> matriculas = obtenerMatriculasPorAlumno(idAlumno);
+        return matriculas.stream()
+                .map(matricula -> obtenerAsignaturaPorId(matricula.getAsignatura().getId()))
+                .filter(asignatura -> asignatura != null)
+                .toList();
     }
 
     // MATRICULAS
