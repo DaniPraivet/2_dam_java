@@ -1,19 +1,22 @@
 package MM.instituto.Vista;
 
+import MM.instituto.ControladorBBDD.Controlador;
+import MM.instituto.Modelo.Asignatura;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class VentanaAgregarAsignatura extends JFrame {
     private JTextField txtNombre;
-    private JTextField txtCodigo;
+    private JTextField txtCurso;
     private JButton btnGuardar;
     private JButton btnCancelar;
-    private Ventana ventanaPrincipal;
+    private VentanaPrincipal ventanaPrincipal;
+    private Controlador controlador;
 
-    public VentanaAgregarAsignatura(Ventana ventanaPrincipal) {
+    public VentanaAgregarAsignatura(VentanaPrincipal ventanaPrincipal, Controlador controlador) {
         this.ventanaPrincipal = ventanaPrincipal;
+        this.controlador = controlador;
 
         initComponentes();
         configurarVentana();
@@ -30,18 +33,20 @@ public class VentanaAgregarAsignatura extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
 
         // Nombre
-        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         panelForm.add(new JLabel("Nombre:"), gbc);
         gbc.gridx = 1;
         txtNombre = new JTextField(20);
         panelForm.add(txtNombre, gbc);
 
-        // Código
-        gbc.gridx = 0; gbc.gridy = 1;
-        panelForm.add(new JLabel("Código:"), gbc);
+        // Curso
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panelForm.add(new JLabel("Curso:"), gbc);
         gbc.gridx = 1;
-        txtCodigo = new JTextField(20);
-        panelForm.add(txtCodigo, gbc);
+        txtCurso = new JTextField(20);
+        panelForm.add(txtCurso, gbc);
 
         // Botones
         JPanel panelBotones = new JPanel();
@@ -55,19 +60,8 @@ public class VentanaAgregarAsignatura extends JFrame {
         add(panelBotones, BorderLayout.SOUTH);
 
         // Eventos
-        btnGuardar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                guardarAsignatura();
-            }
-        });
-
-        btnCancelar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        btnGuardar.addActionListener(e -> guardarAsignatura());
+        btnCancelar.addActionListener(e -> dispose());
     }
 
     private void configurarVentana() {
@@ -79,15 +73,29 @@ public class VentanaAgregarAsignatura extends JFrame {
 
     private void guardarAsignatura() {
         String nombre = txtNombre.getText().trim();
-        String codigo = txtCodigo.getText().trim();
+        String cursoStr = txtCurso.getText().trim();
 
         if (nombre.isEmpty()) {
             JOptionPane.showMessageDialog(this, "El nombre es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Aquí iría la lógica para guardar en la BD
-        JOptionPane.showMessageDialog(this, "Asignatura guardada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        dispose();
+        int curso = 0;
+        try {
+            curso = Integer.parseInt(cursoStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El curso debe ser un número", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Asignatura asignatura = new Asignatura(0, nombre, curso);
+        if (controlador.agregarAsignatura(asignatura)) {
+            JOptionPane.showMessageDialog(this, "Asignatura guardada correctamente", "Éxito",
+                    JOptionPane.INFORMATION_MESSAGE);
+            ventanaPrincipal.cargarDatosAsignaturas();
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al guardar asignatura", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

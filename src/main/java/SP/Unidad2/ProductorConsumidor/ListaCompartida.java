@@ -16,7 +16,7 @@ public class ListaCompartida {
 
     public synchronized boolean eliminar() {
         if (!lista.isEmpty()) {
-            lista.removeFirst();
+            lista.removeLast();
             return true;
         }
         return false;

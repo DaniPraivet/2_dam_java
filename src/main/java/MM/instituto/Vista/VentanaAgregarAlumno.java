@@ -1,34 +1,43 @@
-// VentanaAgregarAlumno.java
 package MM.instituto.Vista;
+
+import MM.instituto.ControladorBBDD.Controlador;
+import MM.instituto.Modelo.Alumno;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class VentanaAgregarAlumno extends JFrame {
     private VentanaPrincipal ventanaPrincipal;
-    private JTextField txtNombre, txtCarnet;
+    private Controlador controlador;
+    private JTextField txtNombre, txtDireccion, txtEstadoMatricula;
+    private JCheckBox chkCarnet;
     private JButton btnGuardar, btnCancelar;
 
-    public VentanaAgregarAlumno(VentanaPrincipal ventanaPrincipal) {
-        this(ventanaPrincipal, null);
-    }
-
-    public VentanaAgregarAlumno(VentanaPrincipal ventanaPrincipal, String id) {
+    public VentanaAgregarAlumno(VentanaPrincipal ventanaPrincipal, Controlador controlador) {
         this.ventanaPrincipal = ventanaPrincipal;
+        this.controlador = controlador;
         setTitle("Agregar Alumno");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(ventanaPrincipal);
 
         // Componentes
-        JPanel panel = new JPanel(new GridLayout(3, 2));
+        JPanel panel = new JPanel(new GridLayout(5, 2));
         panel.add(new JLabel("Nombre:"));
         txtNombre = new JTextField();
         panel.add(txtNombre);
 
+        panel.add(new JLabel("Dirección:"));
+        txtDireccion = new JTextField();
+        panel.add(txtDireccion);
+
+        panel.add(new JLabel("Estado Matrícula:"));
+        txtEstadoMatricula = new JTextField();
+        panel.add(txtEstadoMatricula);
+
         panel.add(new JLabel("Carnet de Conducir:"));
-        txtCarnet = new JTextField();
-        panel.add(txtCarnet);
+        chkCarnet = new JCheckBox();
+        panel.add(chkCarnet);
 
         btnGuardar = new JButton("Guardar");
         btnCancelar = new JButton("Cancelar");
@@ -45,26 +54,22 @@ public class VentanaAgregarAlumno extends JFrame {
 
     private void guardarAlumno() {
         String nombre = txtNombre.getText();
-        String carnet = txtCarnet.getText();
+        String direccion = txtDireccion.getText();
+        String estado = txtEstadoMatricula.getText();
+        boolean carnet = chkCarnet.isSelected();
 
-        if (nombre.isEmpty() || carnet.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Completa todos los campos.");
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El nombre es obligatorio.");
             return;
         }
 
-        // Simular guardado (en una app real, aquí iría la conexión a BD)
-        JOptionPane.showMessageDialog(this, "Alumno guardado exitosamente.");
-
-        dispose();
-
-        // Simular datos actualizados
-        Object[][] nuevosDatos = {
-                {1, nombre, "Apellido Ejemplo", carnet, "01/01/2000"},
-                {2, "María", "García", "87654321B", "22/07/2001"}
-        };
-
-        // Actualizar tabla principal
-        ventanaPrincipal.refrescarTablaAlumnos(nuevosDatos);
+        Alumno alumno = new Alumno(0, nombre, direccion, estado, carnet ? 1 : 0);
+        if (controlador.agregarAlumno(alumno)) {
+            JOptionPane.showMessageDialog(this, "Alumno guardado exitosamente.");
+            ventanaPrincipal.cargarDatosAlumnos();
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al guardar alumno.");
+        }
     }
-
 }

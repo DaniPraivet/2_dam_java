@@ -20,7 +20,6 @@ public class Controlador {
         }
     }
 
-
     public boolean agregarAlumno(Alumno a) {
         if (a == null) {
             System.out.println("Error: Alumno nulo");
@@ -33,12 +32,16 @@ public class Controlador {
         return ConexionDAOInstituto.insertarAlumno(a);
     }
 
+    public boolean eliminarAlumno(int idAlumno) {
+        return ConexionDAOInstituto.eliminarAlumno(idAlumno);
+    }
 
     public void mostrarAlumnosPorNombre() {
         List<Alumno> alumnos = obtenerAlumnos();
         alumnos.sort(Comparator.comparing(Alumno::getNombre, String.CASE_INSENSITIVE_ORDER));
         alumnos.forEach(System.out::println);
     }
+
     public Alumno obtenerAlumnoPorId(int idAlumno) {
         Alumno alumno = ConexionDAOInstituto.obtenerAlumnoPorId(idAlumno);
         if (alumno == null) {
@@ -56,14 +59,20 @@ public class Controlador {
         return ConexionDAOInstituto.insertarAsignatura(a);
     }
 
+    public boolean eliminarAsignatura(int idAsignatura) {
+        return ConexionDAOInstituto.eliminarAsignatura(idAsignatura);
+    }
+
     public int ultimoIdAsignaturas() {
         List<Asignatura> asignaturas = obtenerAsignaturas();
-        if (asignaturas.isEmpty()) return 0;
+        if (asignaturas.isEmpty())
+            return 0;
         return asignaturas.stream()
                 .mapToInt(Asignatura::getId)
                 .max()
                 .orElse(0);
     }
+
     public Asignatura obtenerAsignaturaPorId(int idAsignatura) {
         return ConexionDAOInstituto.obtenerAsignatura(idAsignatura);
     }
@@ -71,7 +80,8 @@ public class Controlador {
     // Obtener promedio de notas por alumno
     public double obtenerPromedioNotasPorAlumno(int idAlumno) {
         List<Matricula> matriculas = obtenerMatriculasPorAlumno(idAlumno);
-        if (matriculas.isEmpty()) return 0.0;
+        if (matriculas.isEmpty())
+            return 0.0;
         return matriculas.stream()
                 .mapToDouble(Matricula::getNota)
                 .average()

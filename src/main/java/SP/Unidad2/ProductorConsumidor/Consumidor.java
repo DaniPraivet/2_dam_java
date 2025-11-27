@@ -9,7 +9,7 @@ public class Consumidor implements Runnable {
     }
     @Override
     public void run() {
-        for (;;) {
+        for (int n = (int)(Math.random() * 100) + 1; n > 0; n--) {
             boolean continuar = lista.eliminar();
             if (!continuar) {
                 try {

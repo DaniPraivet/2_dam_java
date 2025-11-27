@@ -10,8 +10,8 @@ public class Productor implements Runnable {
 
     @Override
     public void run() {
-        for (;;) {
-            boolean continuar = lista.insertar((int)(Math.random() + 1)*100);
+        for (int n = (int)(Math.random() * 100) + 1; n > 0; n--) {
+            boolean continuar = lista.insertar((int)(Math.random() * 100) + 1);
             if (!continuar) {
                 try {
                     TimeUnit.MILLISECONDS.sleep(3000);

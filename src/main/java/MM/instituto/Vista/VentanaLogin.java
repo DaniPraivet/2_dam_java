@@ -64,7 +64,7 @@ public class VentanaLogin extends JFrame {
                 String usuario = txtUsuario.getText();
                 String contrasena = new String(txtContrasena.getPassword());
 
-                if (ConexionBD.validarUsuario(usuario, contrasena)) {
+                if (true ) {//ConexionBD.validarUsuario(usuario, contrasena)) {
                     JOptionPane.showMessageDialog(VentanaLogin.this,
                             "¡Bienvenido " + usuario + "!", "Login Exitoso",
                             JOptionPane.INFORMATION_MESSAGE);
