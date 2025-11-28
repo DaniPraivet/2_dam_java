@@ -1,19 +1,15 @@
 package MM.instituto.Vista;
 
-import MM.instituto.Vista.VentanaLogin;
-
+import com.formdev.flatlaf.FlatDarculaLaf;
 import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        // Establecer look and feel
         try {
-            UIManager.setLookAndFeel(UIManager.getLookAndFeel());
+            UIManager.setLookAndFeel(new FlatDarculaLaf());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // Mostrar ventana de login
         SwingUtilities.invokeLater(() -> {
             new VentanaLogin().setVisible(true);
         });

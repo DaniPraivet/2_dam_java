@@ -1,6 +1,7 @@
 package MM.instituto.Vista;
 
 import MM.instituto.Vista.VentanaPrincipal;
+import MM.instituto.ControladorBBDD.ConexionBD;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,33 +25,42 @@ public class VentanaLogin extends JFrame {
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Fix for small text fields
 
         // Título
         JLabel lblTitulo = new JLabel("Sistema Escolar");
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-        gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
         panelPrincipal.add(lblTitulo, gbc);
 
         // Usuario
         gbc.gridwidth = 1;
-        gbc.gridx = 0; gbc.gridy = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         panelPrincipal.add(new JLabel("Usuario:"), gbc);
 
-        gbc.gridx = 1; gbc.gridy = 1;
+        gbc.gridx = 1;
+        gbc.gridy = 1;
         txtUsuario = new JTextField(15);
         panelPrincipal.add(txtUsuario, gbc);
 
         // Contraseña
-        gbc.gridx = 0; gbc.gridy = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
         panelPrincipal.add(new JLabel("Contraseña:"), gbc);
 
-        gbc.gridx = 1; gbc.gridy = 2;
+        gbc.gridx = 1;
+        gbc.gridy = 2;
         txtContrasena = new JPasswordField(15);
         panelPrincipal.add(txtContrasena, gbc);
 
         // Botón de login
-        gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
         JButton btnLogin = new JButton("Iniciar Sesión");
         btnLogin.setPreferredSize(new Dimension(120, 30));
         panelPrincipal.add(btnLogin, gbc);
@@ -64,7 +74,7 @@ public class VentanaLogin extends JFrame {
                 String usuario = txtUsuario.getText();
                 String contrasena = new String(txtContrasena.getPassword());
 
-                if (true ) {//ConexionBD.validarUsuario(usuario, contrasena)) {
+                if (ConexionBD.validarUsuario(usuario, contrasena)) {
                     JOptionPane.showMessageDialog(VentanaLogin.this,
                             "¡Bienvenido " + usuario + "!", "Login Exitoso",
                             JOptionPane.INFORMATION_MESSAGE);

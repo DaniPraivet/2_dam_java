@@ -1,11 +1,8 @@
-// Ventana.java - Clase base
 package MM.instituto.Vista;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -95,7 +92,7 @@ public class Ventana extends JFrame {
         });
     }
 
-    // Métodos auxiliares - Deben ser sobrescritos por clases hijas
+    // Métodos auxiliares. Deben ser sobrescritos por clases hijas
     protected void abrirVentanaAgregarAlumno() {
         // Implementación por defecto
     }
