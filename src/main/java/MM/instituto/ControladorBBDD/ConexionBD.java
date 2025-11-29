@@ -10,7 +10,7 @@ public class ConexionBD {
 
     private static final String URL = "jdbc:mysql://localhost:3306/instituto";
     private static final String USER = "root";
-    private static final String PASSWORD = "usuario"; // Default password, change if needed
+    private static final String PASSWORD = "usuario"; // Contraseña por defecto, cambiar si es necesario
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
@@ -20,13 +20,13 @@ public class ConexionBD {
         String sql = "SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?";
 
         try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, usuario);
             pstmt.setString(2, contrasena);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                return rs.next(); // Returns true if a record is found
+                return rs.next(); // Devuelve verdadero si se encuentra un registro
             }
 
         } catch (SQLException e) {

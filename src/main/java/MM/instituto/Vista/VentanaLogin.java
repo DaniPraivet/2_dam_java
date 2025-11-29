@@ -1,6 +1,5 @@
 package MM.instituto.Vista;
 
-import MM.instituto.Vista.VentanaPrincipal;
 import MM.instituto.ControladorBBDD.ConexionBD;
 
 import javax.swing.*;
@@ -25,7 +24,7 @@ public class VentanaLogin extends JFrame {
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL; // Fix for small text fields
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Arreglo para campos de texto pequeños
 
         // Título
         JLabel lblTitulo = new JLabel("Sistema Escolar");

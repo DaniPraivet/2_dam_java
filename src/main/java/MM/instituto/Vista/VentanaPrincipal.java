@@ -11,37 +11,34 @@ import java.awt.*;
 import java.util.List;
 
 public class VentanaPrincipal extends JFrame {
-    private JTabbedPane tabbedPane;
     private Controlador controlador;
     private JTable tablaAlumnos;
     private JTable tablaAsignaturas;
     private JTable tablaMatriculas;
 
+    // Componentes de la GUI
+    private JTabbedPane menuInterior;
+    private JSplitPane panelDivisorCentral;
+    private JPanel panelPrincipal;
+    private JMenuBar menuBar;
+    private JMenu menuAlumno, menuAsignatura, menuMatricula, menuVista;
+    private JMenuItem menuItemAgregarAlumno, menuItemEliminarAlumno;
+    private JMenuItem menuItemAgregarAsignatura, menuItemEliminarAsignatura;
+    private JMenuItem menuItemAgregarMatricula, menuItemEliminarMatricula;
+    private JCheckBoxMenuItem menuItemVista;
+
+    // Iconos
+    private ImageIcon iconPapel, iconAsignatura, iconAlumno, iconMatricula;
+
     public VentanaPrincipal() {
         controlador = new Controlador();
 
         setTitle("Sistema Escolar - Ventana Principal");
-        setSize(800, 600);
+        setSize(1000, 700); // Un poco más grande para acomodar el diseño
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Crear el tabbed pane
-        tabbedPane = new JTabbedPane();
-
-        // Crear los paneles para cada pestaña
-        JPanel panelAlumnos = crearPanelAlumnos();
-        JPanel panelAsignaturas = crearPanelAsignaturas();
-        JPanel panelMatriculas = crearPanelMatriculas();
-
-        // Agregar pestañas
-        tabbedPane.addTab("Alumnos", panelAlumnos);
-        tabbedPane.addTab("Asignaturas", panelAsignaturas);
-        tabbedPane.addTab("Matrículas", panelMatriculas);
-
-        add(tabbedPane);
-
-        // Menú superior
-        crearMenu();
+        initGUI();
 
         // Cargar datos iniciales
         cargarDatosAlumnos();
@@ -49,91 +46,122 @@ public class VentanaPrincipal extends JFrame {
         cargarDatosMatriculas();
     }
 
-    private void crearMenu() {
-        JMenuBar menuBar = new JMenuBar();
-        JMenu menuSistema = new JMenu("Sistema");
+    public void initGUI() {
+        // Cargar y escalar iconos
+        iconPapel = new ImageIcon("src/main/java/MM/Layouts/Práctica6/Imagenes/papellapiz.png");
+        iconAsignatura = new ImageIcon("src/main/java/MM/Layouts/Práctica6/Imagenes/asignatura.png");
+        iconAlumno = new ImageIcon("src/main/java/MM/Layouts/Práctica6/Imagenes/alumno.png");
+        iconMatricula = new ImageIcon("src/main/java/MM/Layouts/Práctica6/Imagenes/matricula.png");
 
-        JMenuItem menuItemSalir = new JMenuItem("Salir");
-        menuItemSalir.addActionListener(e -> System.exit(0));
+        iconAlumno = new ImageIcon(iconAlumno.getImage().getScaledInstance(36, 36, Image.SCALE_DEFAULT)); // 24x24 para
+        iconAsignatura = new ImageIcon(iconAsignatura.getImage().getScaledInstance(36, 36, Image.SCALE_DEFAULT));
+        iconMatricula = new ImageIcon(iconMatricula.getImage().getScaledInstance(36, 36, Image.SCALE_DEFAULT));
+        iconPapel = new ImageIcon(iconPapel.getImage().getScaledInstance(36, 36, Image.SCALE_DEFAULT));
 
-        menuSistema.add(menuItemSalir);
-        menuBar.add(menuSistema);
+        // Crear paneles para las tablas
+        JPanel panelTablaAlumnos = crearPanelAlumnos();
+        JPanel panelTablaAsignaturas = crearPanelAsignaturas();
+        JPanel panelTablaMatriculas = crearPanelMatriculas();
 
+        // Configurar JTabbedPane
+        menuInterior = new JTabbedPane();
+        menuInterior.addTab("Alumnos", iconAlumno, panelTablaAlumnos);
+        menuInterior.addTab("Asignatura", iconAsignatura, panelTablaAsignaturas);
+        menuInterior.addTab("Matricula", iconMatricula, panelTablaMatriculas);
+
+        // Configurar JSplitPane
+        panelDivisorCentral = new JSplitPane();
+        panelDivisorCentral.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
+        panelDivisorCentral.setDividerSize(5); // Un poco más visible
+        panelDivisorCentral.setDividerLocation(200); // Espacio para el panel izquierdo
+        panelDivisorCentral.setResizeWeight(0.0); // El panel izquierdo no se redimensiona mucho
+
+        // Panel izquierdo (por ahora vacío o con algo decorativo)
+        JPanel panelIzquierdo = new JPanel();
+        panelIzquierdo.setBackground(Color.LIGHT_GRAY);
+        panelIzquierdo.add(new JLabel("Panel Lateral"));
+        panelDivisorCentral.setLeftComponent(panelIzquierdo);
+
+        panelDivisorCentral.setRightComponent(menuInterior);
+
+        // Configurar Menú
+        crearMenu();
+
+        // Panel Principal
+        panelPrincipal = new JPanel();
+        panelPrincipal.setLayout(new BorderLayout());
+        panelPrincipal.add(panelDivisorCentral, BorderLayout.CENTER);
+
+        // Añadir al JFrame
+        setContentPane(panelPrincipal);
         setJMenuBar(menuBar);
+    }
+
+    private void crearMenu() {
+        menuBar = new JMenuBar();
+
+        // Menú Alumnos
+        menuAlumno = new JMenu("Alumnos");
+        menuItemAgregarAlumno = new JMenuItem("Añadir alumno");
+        menuItemEliminarAlumno = new JMenuItem("Eliminar alumno");
+        menuItemAgregarAlumno.addActionListener(e -> abrirVentanaAgregarAlumno());
+        menuItemEliminarAlumno.addActionListener(e -> eliminarAlumnoSeleccionado());
+        menuAlumno.add(menuItemAgregarAlumno);
+        menuAlumno.add(menuItemEliminarAlumno);
+
+        // Menú Asignatura
+        menuAsignatura = new JMenu("Asignatura");
+        menuItemAgregarAsignatura = new JMenuItem("Añadir asignatura");
+        menuItemEliminarAsignatura = new JMenuItem("Eliminar asignatura");
+        menuItemAgregarAsignatura.addActionListener(e -> abrirVentanaAgregarAsignatura());
+        menuItemEliminarAsignatura.addActionListener(e -> eliminarAsignaturaSeleccionada());
+        menuAsignatura.add(menuItemAgregarAsignatura);
+        menuAsignatura.add(menuItemEliminarAsignatura);
+
+        // Menú Matricula
+        menuMatricula = new JMenu("Matricula");
+        menuItemAgregarMatricula = new JMenuItem("Nueva matrícula");
+        menuItemEliminarMatricula = new JMenuItem("Eliminar matrícula");
+        menuItemAgregarMatricula.addActionListener(e -> abrirVentanaAgregarMatricula());
+        menuItemEliminarMatricula.addActionListener(e -> eliminarMatriculaSeleccionada());
+        menuMatricula.add(menuItemAgregarMatricula);
+        menuMatricula.add(menuItemEliminarMatricula);
+
+        // Menú Vista
+        menuVista = new JMenu("Vista");
+        menuItemVista = new JCheckBoxMenuItem("Vista alumno");
+        menuVista.add(menuItemVista);
+
+        menuBar.add(menuAlumno);
+        menuBar.add(menuAsignatura);
+        menuBar.add(menuMatricula);
+        menuBar.add(menuVista);
     }
 
     private JPanel crearPanelAlumnos() {
         JPanel panel = new JPanel(new BorderLayout());
-
-        // Panel de botones
-        JPanel panelBotones = new JPanel(new FlowLayout());
-        JButton btnAgregarAlumno = new JButton("Agregar Alumno");
-        JButton btnEliminarAlumno = new JButton("Eliminar Alumno");
-
-        btnAgregarAlumno.addActionListener(e -> abrirVentanaAgregarAlumno());
-        btnEliminarAlumno.addActionListener(e -> eliminarAlumnoSeleccionado());
-
-        panelBotones.add(btnAgregarAlumno);
-        panelBotones.add(btnEliminarAlumno);
-
-        // Tabla de alumnos
         String[] columnas = { "ID", "Nombre", "Dirección", "Estado Matrícula", "Carnet" };
         tablaAlumnos = new JTable(new DefaultTableModel(columnas, 0));
         JScrollPane scrollPane = new JScrollPane(tablaAlumnos);
-
-        panel.add(panelBotones, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER);
-
         return panel;
     }
 
     private JPanel crearPanelAsignaturas() {
         JPanel panel = new JPanel(new BorderLayout());
-
-        // Panel de botones
-        JPanel panelBotones = new JPanel(new FlowLayout());
-        JButton btnAgregarAsignatura = new JButton("Agregar Asignatura");
-        JButton btnEliminarAsignatura = new JButton("Eliminar Asignatura");
-
-        btnAgregarAsignatura.addActionListener(e -> abrirVentanaAgregarAsignatura());
-        btnEliminarAsignatura.addActionListener(e -> eliminarAsignaturaSeleccionada());
-
-        panelBotones.add(btnAgregarAsignatura);
-        panelBotones.add(btnEliminarAsignatura);
-
-        // Tabla de asignaturas
         String[] columnas = { "ID", "Nombre", "Curso" };
         tablaAsignaturas = new JTable(new DefaultTableModel(columnas, 0));
         JScrollPane scrollPane = new JScrollPane(tablaAsignaturas);
-
-        panel.add(panelBotones, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER);
-
         return panel;
     }
 
     private JPanel crearPanelMatriculas() {
         JPanel panel = new JPanel(new BorderLayout());
-
-        // Panel de botones
-        JPanel panelBotones = new JPanel(new FlowLayout());
-        JButton btnNuevaMatricula = new JButton("Nueva Matrícula");
-        JButton btnEliminarMatricula = new JButton("Eliminar Matrícula");
-
-        btnNuevaMatricula.addActionListener(e -> abrirVentanaAgregarMatricula());
-        btnEliminarMatricula.addActionListener(e -> eliminarMatriculaSeleccionada());
-
-        panelBotones.add(btnNuevaMatricula);
-        panelBotones.add(btnEliminarMatricula);
-
-        // Tabla de matrículas
         String[] columnas = { "ID", "Alumno", "Asignatura", "Nota" };
         tablaMatriculas = new JTable(new DefaultTableModel(columnas, 0));
         JScrollPane scrollPane = new JScrollPane(tablaMatriculas);
-
-        panel.add(panelBotones, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER);
-
         return panel;
     }
 
@@ -160,10 +188,6 @@ public class VentanaPrincipal extends JFrame {
     public void cargarDatosMatriculas() {
         DefaultTableModel modelo = (DefaultTableModel) tablaMatriculas.getModel();
         modelo.setRowCount(0);
-        // Aquí hay un pequeño problema: obtenerMatriculas no está en Controlador, pero
-        // obtenerMatriculasPorAlumno sí.
-        // Necesitamos un método para obtener TODAS las matrículas o iterar por alumnos.
-        // Por simplicidad y para ver algo, iteraremos por alumnos.
         List<Alumno> alumnos = controlador.obtenerAlumnos();
         for (Alumno alumno : alumnos) {
             List<Matricula> matriculas = controlador.obtenerMatriculasPorAlumno(alumno.getId());
@@ -194,10 +218,12 @@ public class VentanaPrincipal extends JFrame {
             int id = (int) tablaAlumnos.getValueAt(fila, 0);
             if (controlador.eliminarAlumno(id)) {
                 cargarDatosAlumnos();
-                cargarDatosMatriculas(); // Refrescar matrículas también
+                cargarDatosMatriculas();
             } else {
                 JOptionPane.showMessageDialog(this, "Error al eliminar alumno");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un alumno para eliminar");
         }
     }
 
@@ -207,48 +233,25 @@ public class VentanaPrincipal extends JFrame {
             int id = (int) tablaAsignaturas.getValueAt(fila, 0);
             if (controlador.eliminarAsignatura(id)) {
                 cargarDatosAsignaturas();
-                cargarDatosMatriculas(); // Refrescar matrículas también
+                cargarDatosMatriculas();
             } else {
                 JOptionPane.showMessageDialog(this, "Error al eliminar asignatura");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una asignatura para eliminar");
         }
     }
 
     private void eliminarMatriculaSeleccionada() {
         int fila = tablaMatriculas.getSelectedRow();
         if (fila != -1) {
-            // Para eliminar matrícula necesitamos idAlumno e idAsignatura según el método
-            // del controlador
-            // Pero en la tabla tenemos ID de matrícula.
-            // El controlador tiene eliminarMatricula(idAlumno, idAsignatura).
-            // Necesitamos obtener esos IDs de la fila seleccionada.
-            // Ojo: En la tabla mostramos nombres. Necesitamos los objetos o IDs ocultos o
-            // volver a buscar.
-            // Simplificación: Asumimos que podemos obtener los IDs si los guardamos en la
-            // tabla o cambiamos el método de eliminar.
-            // Mejor opción: Cambiar eliminarMatricula para usar ID de matrícula si es
-            // posible, o obtener los objetos.
-            // Dado que no tengo fácil acceso a los IDs de alumno/asignatura desde la tabla
-            // tal cual está (solo nombres),
-            // voy a intentar obtener los IDs buscando por nombre (arriesgado) o mejor,
-            // guardar IDs en la tabla aunque no se muestren, o simplemente mostrar IDs.
-            // Voy a mostrar IDs en la tabla para simplificar la eliminación por ahora.
-
-            // Re-implementación rápida: obtener los IDs de las columnas si estuvieran.
-            // Pero espera, el modelo tiene ID, Alumno, Asignatura, Nota.
-            // Alumno y Asignatura son Strings (nombres).
-            // Voy a modificar cargarDatosMatriculas para incluir IDs de alumno y asignatura
-            // en columnas ocultas o visibles.
-
-            // Por ahora, mostraré un mensaje de que no está implementado completamente la
-            // eliminación desde la tabla principal
-            // porque requiere refactorizar la tabla para tener los IDs.
             JOptionPane.showMessageDialog(this,
                     "Eliminación de matrícula desde aquí requiere refactorización para obtener IDs.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una matrícula para eliminar");
         }
     }
 
-    // Método de compatibilidad para VentanaAgregar...
     public void refrescarTablaAlumnos(Object[][] datos) {
         cargarDatosAlumnos();
     }
