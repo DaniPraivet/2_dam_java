@@ -1,6 +1,7 @@
 package MM.instituto.Vista;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+
 import javax.swing.*;
 
 public class Main {

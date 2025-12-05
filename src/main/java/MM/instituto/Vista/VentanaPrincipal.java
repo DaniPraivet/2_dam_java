@@ -244,9 +244,35 @@ public class VentanaPrincipal extends JFrame {
 
     private void eliminarMatriculaSeleccionada() {
         int fila = tablaMatriculas.getSelectedRow();
+        String alumnoNombre = (String) tablaMatriculas.getValueAt(fila, 1);
+        String asignaturaNombre = (String) tablaMatriculas.getValueAt(fila, 2);
+        Alumno alumno = null;
+        Asignatura asignatura = null;
+
+        // Buscar alumno por nombre
+        List<Alumno> alumnos = controlador.obtenerAlumnos();
+        for (Alumno a : alumnos) {
+            if (a.getNombre().equals(alumnoNombre)) {
+                alumno = a;
+            }
+        }
+
+        List<Asignatura> asignaturas = controlador.obtenerAsignaturas();
+        for (Asignatura a : asignaturas) {
+            if (a.getNombre().equals(alumnoNombre)) {
+                asignatura = a;
+            }
+        }
+
         if (fila != -1) {
-            JOptionPane.showMessageDialog(this,
-                    "Eliminación de matrícula desde aquí requiere refactorización para obtener IDs.");
+            if (controlador.eliminarMatricula(alumno.getId(),  asignatura.getId())) {
+                cargarDatosMatriculas();
+                JOptionPane.showMessageDialog(this, "Matricula eliminada");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al eliminar asignatura");
+                JOptionPane.showMessageDialog(this,
+                        "Eliminación de matrícula desde aquí requiere refactorización para obtener IDs.");
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una matrícula para eliminar");
         }

@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="2dam_java.main:jar">
+    <output-path>$PROJECT_DIR$</output-path>
+    <root id="archive" name="2dam_java.main.jar">
+      <element id="module-output" name="2dam_java.main" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mysql/mysql-connector-j/8.0.31/3fd5850719d7e82d50705d34cc6a0037fab5731f/mysql-connector-j-8.0.31.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.19.4/748e4e0b9e4fa6b9b1fe65690aa04a9db56cfc4d/protobuf-java-3.19.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.formdev/flatlaf/3.6.2/d927e248d29606be1bdfb5cc29699b0a2a2e7a6c/flatlaf-3.6.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
