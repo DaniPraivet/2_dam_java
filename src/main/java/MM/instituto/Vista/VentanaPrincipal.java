@@ -259,7 +259,7 @@ public class VentanaPrincipal extends JFrame {
 
         List<Asignatura> asignaturas = controlador.obtenerAsignaturas();
         for (Asignatura a : asignaturas) {
-            if (a.getNombre().equals(alumnoNombre)) {
+            if (a.getNombre().equals(asignaturaNombre)) {
                 asignatura = a;
             }
         }
