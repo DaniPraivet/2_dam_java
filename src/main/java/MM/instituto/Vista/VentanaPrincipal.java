@@ -1,9 +1,7 @@
 package MM.instituto.Vista;
 
 import MM.instituto.ControladorBBDD.Controlador;
-import MM.instituto.Modelo.Alumno;
-import MM.instituto.Modelo.Asignatura;
-import MM.instituto.Modelo.Matricula;
+import MM.instituto.Modelo.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -30,11 +28,16 @@ public class VentanaPrincipal extends JFrame {
     // Iconos
     private ImageIcon iconPapel, iconAsignatura, iconAlumno, iconMatricula;
 
+    // PDF - Nuevo sistema
+    private VisorPDF visorPDF;
+    private GestorPDF gestorPDF;
+
     public VentanaPrincipal() {
+        EstiloAplicacion.aplicarEstilo();
         controlador = new Controlador();
 
         setTitle("Sistema Escolar - Ventana Principal");
-        setSize(1000, 700); // Un poco más grande para acomodar el diseño
+        setSize(1000, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -53,7 +56,7 @@ public class VentanaPrincipal extends JFrame {
         iconAlumno = new ImageIcon("src/main/java/MM/Layouts/Práctica6/Imagenes/alumno.png");
         iconMatricula = new ImageIcon("src/main/java/MM/Layouts/Práctica6/Imagenes/matricula.png");
 
-        iconAlumno = new ImageIcon(iconAlumno.getImage().getScaledInstance(36, 36, Image.SCALE_DEFAULT)); // 24x24 para
+        iconAlumno = new ImageIcon(iconAlumno.getImage().getScaledInstance(36, 36, Image.SCALE_DEFAULT));
         iconAsignatura = new ImageIcon(iconAsignatura.getImage().getScaledInstance(36, 36, Image.SCALE_DEFAULT));
         iconMatricula = new ImageIcon(iconMatricula.getImage().getScaledInstance(36, 36, Image.SCALE_DEFAULT));
         iconPapel = new ImageIcon(iconPapel.getImage().getScaledInstance(36, 36, Image.SCALE_DEFAULT));
@@ -72,29 +75,55 @@ public class VentanaPrincipal extends JFrame {
         // Configurar JSplitPane
         panelDivisorCentral = new JSplitPane();
         panelDivisorCentral.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
-        panelDivisorCentral.setDividerSize(5); // Un poco más visible
-        panelDivisorCentral.setDividerLocation(200); // Espacio para el panel izquierdo
-        panelDivisorCentral.setResizeWeight(0.0); // El panel izquierdo no se redimensiona mucho
+        panelDivisorCentral.setDividerSize(5);
+        panelDivisorCentral.setDividerLocation(200);
+        panelDivisorCentral.setResizeWeight(0.0);
 
-        // Panel izquierdo (por ahora vacío o con algo decorativo)
-        JPanel panelIzquierdo = new JPanel();
+        // Panel izquierdo con visor PDF
+        JPanel panelIzquierdo = new JPanel(new BorderLayout());
         panelIzquierdo.setBackground(Color.LIGHT_GRAY);
-        panelIzquierdo.add(new JLabel("Panel Lateral"));
+
+        // Crear el visor PDF
+        visorPDF = new VisorPDF();
+
+        // Crear el gestor PDF
+        gestorPDF = new GestorPDF(visorPDF, this);
+
+        // Crear panel de botones para PDF
+        JPanel panelBotonesPDF = new JPanel(new FlowLayout());
+
+        JButton btnCargarPDF = new JButton("Cargar PDF");
+        btnCargarPDF.setToolTipText("Cargar un archivo PDF para visualizar");
+        btnCargarPDF.addActionListener(e -> gestorPDF.cargarPDFConDialogo());
+
+        JButton btnCerrarPDF = new JButton("Cerrar");
+        btnCerrarPDF.setToolTipText("Cerrar el PDF actual");
+        btnCerrarPDF.addActionListener(e -> gestorPDF.cerrarDocumento());
+
+        panelBotonesPDF.add(btnCargarPDF);
+        panelBotonesPDF.add(btnCerrarPDF);
+
+        // Añadir componentes al panel izquierdo
+        panelIzquierdo.add(panelBotonesPDF, BorderLayout.NORTH);
+        panelIzquierdo.add(visorPDF, BorderLayout.CENTER);
+
         panelDivisorCentral.setLeftComponent(panelIzquierdo);
 
+        // Configurar el panel derecho (tablas)
         panelDivisorCentral.setRightComponent(menuInterior);
 
-        // Configurar Menú
-        crearMenu();
-
-        // Panel Principal
-        panelPrincipal = new JPanel();
-        panelPrincipal.setLayout(new BorderLayout());
+        // Añadir el split pane al panel principal
+        panelPrincipal = new JPanel(new BorderLayout());
         panelPrincipal.add(panelDivisorCentral, BorderLayout.CENTER);
 
-        // Añadir al JFrame
-        setContentPane(panelPrincipal);
-        setJMenuBar(menuBar);
+        // Crear barra de herramientas
+        crearBarraHerramientas();
+
+        // Añadir panel principal a la ventana
+        add(panelPrincipal);
+
+        // Mostrar ventana
+        setVisible(true);
     }
 
     private void crearMenu() {
@@ -142,6 +171,7 @@ public class VentanaPrincipal extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         String[] columnas = { "ID", "Nombre", "Dirección", "Estado Matrícula", "Carnet" };
         tablaAlumnos = new JTable(new DefaultTableModel(columnas, 0));
+        TablaAlumnosModel.aplicarEstiloCabeceras(tablaAlumnos);
         JScrollPane scrollPane = new JScrollPane(tablaAlumnos);
         panel.add(scrollPane, BorderLayout.CENTER);
         return panel;
@@ -151,6 +181,7 @@ public class VentanaPrincipal extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         String[] columnas = { "ID", "Nombre", "Curso" };
         tablaAsignaturas = new JTable(new DefaultTableModel(columnas, 0));
+        TablaAlumnosModel.aplicarEstiloCabeceras(tablaAsignaturas);
         JScrollPane scrollPane = new JScrollPane(tablaAsignaturas);
         panel.add(scrollPane, BorderLayout.CENTER);
         return panel;
@@ -160,6 +191,7 @@ public class VentanaPrincipal extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         String[] columnas = { "ID", "Alumno", "Asignatura", "Nota" };
         tablaMatriculas = new JTable(new DefaultTableModel(columnas, 0));
+        TablaAlumnosModel.aplicarEstiloCabeceras(tablaAsignaturas);
         JScrollPane scrollPane = new JScrollPane(tablaMatriculas);
         panel.add(scrollPane, BorderLayout.CENTER);
         return panel;
@@ -265,7 +297,7 @@ public class VentanaPrincipal extends JFrame {
         }
 
         if (fila != -1) {
-            if (controlador.eliminarMatricula(alumno.getId(),  asignatura.getId())) {
+            if (controlador.eliminarMatricula(alumno.getId(), asignatura.getId())) {
                 cargarDatosMatriculas();
                 JOptionPane.showMessageDialog(this, "Matricula eliminada");
             } else {
@@ -280,5 +312,62 @@ public class VentanaPrincipal extends JFrame {
 
     public void refrescarTablaAlumnos(Object[][] datos) {
         cargarDatosAlumnos();
+    }
+
+    public void crearBarraHerramientas() {
+        JToolBar barraHerramientas = new JToolBar();
+
+        JButton btnGenerarPDF = new JButton("Generar PDF");
+        btnGenerarPDF.setToolTipText("Generar PDF de la tabla actual");
+        btnGenerarPDF.addActionListener(e -> generarPDFTablaActual());
+
+        JButton btnGenerarReporte = new JButton("Reporte Completo");
+        btnGenerarReporte.setToolTipText("Generar reporte PDF con todas las tablas");
+        btnGenerarReporte.addActionListener(e -> generarReporteCompleto());
+
+        JButton btnCargarPDF = new JButton("Cargar PDF");
+        btnCargarPDF.setToolTipText("Cargar PDF existente");
+        btnCargarPDF.addActionListener(e -> gestorPDF.cargarPDFConDialogo());
+
+        barraHerramientas.add(btnGenerarPDF);
+        barraHerramientas.addSeparator();
+        barraHerramientas.add(btnGenerarReporte);
+        barraHerramientas.addSeparator();
+        barraHerramientas.add(btnCargarPDF);
+        barraHerramientas.setFloatable(false);
+
+        panelPrincipal.add(barraHerramientas, BorderLayout.NORTH);
+    }
+
+    /**
+     * Genera PDF de la tabla actualmente seleccionada
+     */
+    private void generarPDFTablaActual() {
+        int indiceActivo = menuInterior.getSelectedIndex();
+
+        switch (indiceActivo) {
+            case 0: // Alumnos
+                gestorPDF.generarPDFDesdeTabla(tablaAlumnos, "Listado de Alumnos");
+                break;
+            case 1: // Asignaturas
+                gestorPDF.generarPDFDesdeTabla(tablaAsignaturas, "Listado de Asignaturas");
+                break;
+            case 2: // Matrículas
+                gestorPDF.generarPDFDesdeTabla(tablaMatriculas, "Listado de Matrículas");
+                break;
+        }
+    }
+
+    /**
+     * Genera un reporte completo con todas las tablas
+     */
+    private void generarReporteCompleto() {
+        GeneradorPDF.TablaInfo[] tablas = {
+                new GeneradorPDF.TablaInfo(tablaAlumnos, "Alumnos"),
+                new GeneradorPDF.TablaInfo(tablaAsignaturas, "Asignaturas"),
+                new GeneradorPDF.TablaInfo(tablaMatriculas, "Matrículas")
+        };
+
+        gestorPDF.generarPDFMultiplesTablas("Reporte Completo del Sistema Escolar", tablas);
     }
 }

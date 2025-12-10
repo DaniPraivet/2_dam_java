@@ -1,7 +1,9 @@
 package MM.instituto.Modelo;
 
 import MM.instituto.ControladorBBDD.Controlador;
+import MM.instituto.Vista.RenderizadorCabecera;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -87,5 +89,9 @@ public class TablaAlumnosModel extends AbstractTableModel {
 
     public Alumno getAlumnoAt(int rowIndex) {
         return alumnos.get(rowIndex);
+    }
+
+    public static void aplicarEstiloCabeceras(JTable tabla) {
+        tabla.getTableHeader().setDefaultRenderer(new RenderizadorCabecera());
     }
 }
