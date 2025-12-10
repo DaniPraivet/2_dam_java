@@ -19,7 +19,7 @@ public class VentanaPrincipal extends JFrame {
     private JSplitPane panelDivisorCentral;
     private JPanel panelPrincipal;
     private JMenuBar menuBar;
-    private JMenu menuAlumno, menuAsignatura, menuMatricula, menuVista;
+    private JMenu menuAlumno, menuAsignatura, menuMatricula, menuVista, menuPDF;
     private JMenuItem menuItemAgregarAlumno, menuItemEliminarAlumno;
     private JMenuItem menuItemAgregarAsignatura, menuItemEliminarAsignatura;
     private JMenuItem menuItemAgregarMatricula, menuItemEliminarMatricula;
@@ -88,23 +88,6 @@ public class VentanaPrincipal extends JFrame {
 
         // Crear el gestor PDF
         gestorPDF = new GestorPDF(visorPDF, this);
-
-        // Crear panel de botones para PDF
-        JPanel panelBotonesPDF = new JPanel(new FlowLayout());
-
-        JButton btnCargarPDF = new JButton("Cargar PDF");
-        btnCargarPDF.setToolTipText("Cargar un archivo PDF para visualizar");
-        btnCargarPDF.addActionListener(e -> gestorPDF.cargarPDFConDialogo());
-
-        JButton btnCerrarPDF = new JButton("Cerrar");
-        btnCerrarPDF.setToolTipText("Cerrar el PDF actual");
-        btnCerrarPDF.addActionListener(e -> gestorPDF.cerrarDocumento());
-
-        panelBotonesPDF.add(btnCargarPDF);
-        panelBotonesPDF.add(btnCerrarPDF);
-
-        // Añadir componentes al panel izquierdo
-        panelIzquierdo.add(panelBotonesPDF, BorderLayout.NORTH);
         panelIzquierdo.add(visorPDF, BorderLayout.CENTER);
 
         panelDivisorCentral.setLeftComponent(panelIzquierdo);
@@ -116,8 +99,8 @@ public class VentanaPrincipal extends JFrame {
         panelPrincipal = new JPanel(new BorderLayout());
         panelPrincipal.add(panelDivisorCentral, BorderLayout.CENTER);
 
-        // Crear barra de herramientas
-        crearBarraHerramientas();
+        // Crear menú y barra de herramientas
+        crearMenu();
 
         // Añadir panel principal a la ventana
         add(panelPrincipal);
@@ -156,20 +139,46 @@ public class VentanaPrincipal extends JFrame {
         menuMatricula.add(menuItemAgregarMatricula);
         menuMatricula.add(menuItemEliminarMatricula);
 
+        // Menú PDF - NUEVO
+        menuPDF = new JMenu("PDF");
+
+        JMenuItem menuItemGenerarPDFActual = new JMenuItem("Generar PDF de tabla actual");
+        menuItemGenerarPDFActual.addActionListener(e -> generarPDFTablaActual());
+
+        JMenuItem menuItemGenerarReporte = new JMenuItem("Generar reporte completo");
+        menuItemGenerarReporte.addActionListener(e -> generarReporteCompleto());
+
+        JMenuItem menuItemCargarPDF = new JMenuItem("Cargar PDF existente");
+        menuItemCargarPDF.addActionListener(e -> gestorPDF.cargarPDFConDialogo());
+
+        JMenuItem menuItemCerrarPDF = new JMenuItem("Cerrar PDF");
+        menuItemCerrarPDF.addActionListener(e -> gestorPDF.cerrarDocumento());
+
+        menuPDF.add(menuItemGenerarPDFActual);
+        menuPDF.add(menuItemGenerarReporte);
+        menuPDF.addSeparator();
+        menuPDF.add(menuItemCargarPDF);
+        menuPDF.add(menuItemCerrarPDF);
+
         // Menú Vista
         menuVista = new JMenu("Vista");
         menuItemVista = new JCheckBoxMenuItem("Vista alumno");
         menuVista.add(menuItemVista);
 
+        // Añadir todos los menús a la barra
         menuBar.add(menuAlumno);
         menuBar.add(menuAsignatura);
         menuBar.add(menuMatricula);
+        menuBar.add(menuPDF);
         menuBar.add(menuVista);
+
+        // Establecer la barra de menú en la ventana
+        setJMenuBar(menuBar);
     }
 
     private JPanel crearPanelAlumnos() {
         JPanel panel = new JPanel(new BorderLayout());
-        String[] columnas = { "ID", "Nombre", "Dirección", "Estado Matrícula", "Carnet" };
+        String[] columnas = { "Nombre", "Dirección", "Estado Matrícula", "Carnet" };
         tablaAlumnos = new JTable(new DefaultTableModel(columnas, 0));
         TablaAlumnosModel.aplicarEstiloCabeceras(tablaAlumnos);
         JScrollPane scrollPane = new JScrollPane(tablaAlumnos);
@@ -179,7 +188,7 @@ public class VentanaPrincipal extends JFrame {
 
     private JPanel crearPanelAsignaturas() {
         JPanel panel = new JPanel(new BorderLayout());
-        String[] columnas = { "ID", "Nombre", "Curso" };
+        String[] columnas = { "Nombre", "Curso" };
         tablaAsignaturas = new JTable(new DefaultTableModel(columnas, 0));
         TablaAlumnosModel.aplicarEstiloCabeceras(tablaAsignaturas);
         JScrollPane scrollPane = new JScrollPane(tablaAsignaturas);
@@ -189,9 +198,9 @@ public class VentanaPrincipal extends JFrame {
 
     private JPanel crearPanelMatriculas() {
         JPanel panel = new JPanel(new BorderLayout());
-        String[] columnas = { "ID", "Alumno", "Asignatura", "Nota" };
+        String[] columnas = { "Alumno", "Asignatura", "Nota" };
         tablaMatriculas = new JTable(new DefaultTableModel(columnas, 0));
-        TablaAlumnosModel.aplicarEstiloCabeceras(tablaAsignaturas);
+        TablaAlumnosModel.aplicarEstiloCabeceras(tablaMatriculas);
         JScrollPane scrollPane = new JScrollPane(tablaMatriculas);
         panel.add(scrollPane, BorderLayout.CENTER);
         return panel;
@@ -203,7 +212,7 @@ public class VentanaPrincipal extends JFrame {
         modelo.setRowCount(0);
         List<Alumno> alumnos = controlador.obtenerAlumnos();
         for (Alumno a : alumnos) {
-            modelo.addRow(new Object[] { a.getId(), a.getNombre(), a.getDireccion(), a.getEstadoMatricula(),
+            modelo.addRow(new Object[] {a.getNombre(), a.getDireccion(), a.getEstadoMatricula(),
                     a.isCarnetConducir() ? "Sí" : "No" });
         }
     }
@@ -213,7 +222,7 @@ public class VentanaPrincipal extends JFrame {
         modelo.setRowCount(0);
         List<Asignatura> asignaturas = controlador.obtenerAsignaturas();
         for (Asignatura a : asignaturas) {
-            modelo.addRow(new Object[] { a.getId(), a.getNombre(), a.getCurso() });
+            modelo.addRow(new Object[] {a.getNombre(), a.getCurso() });
         }
     }
 
@@ -224,7 +233,7 @@ public class VentanaPrincipal extends JFrame {
         for (Alumno alumno : alumnos) {
             List<Matricula> matriculas = controlador.obtenerMatriculasPorAlumno(alumno.getId());
             for (Matricula m : matriculas) {
-                modelo.addRow(new Object[] { m.getId(), m.getAlumno().getNombre(), m.getAsignatura().getNombre(),
+                modelo.addRow(new Object[] {m.getAlumno().getNombre(), m.getAsignatura().getNombre(),
                         m.getNota() });
             }
         }
@@ -297,7 +306,7 @@ public class VentanaPrincipal extends JFrame {
         }
 
         if (fila != -1) {
-            if (controlador.eliminarMatricula(alumno.getId(), asignatura.getId())) {
+            if (controlador.eliminarMatricula(alumno.getId(),  asignatura.getId())) {
                 cargarDatosMatriculas();
                 JOptionPane.showMessageDialog(this, "Matricula eliminada");
             } else {
