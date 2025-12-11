@@ -15,17 +15,50 @@ import java.util.List;
  * Componente para visualizar archivos PDF en un JPanel
  */
 public class VisorPDF extends JPanel {
+    /**
+     * Documento pdf donde se va a trabajar
+     */
     private PDDocument documento;
+    /**
+     * Render a usar para poder visualizar el pdf
+     */
     private PDFRenderer renderizador;
+    /**
+     * Lista de todas las páginas del documento
+     */
     private List<BufferedImage> paginas;
+    /**
+     * Numero de la página actual donde estamos
+     */
     private int paginaActual;
+    /**
+     * Donde vamos a mostrar el contenido del pdf
+     */
     private JPanel panelContenido;
+    /**
+     * Componente para poder "desplazarnos" vertical u horizontalmente
+     */
     private JScrollPane scrollPane;
+    /**
+     * Indicador de la página en la que nos situamos
+     */
     private JLabel lblPagina;
+    /**
+     * Botones para avanzar o retroceder páginas
+     */
     private JButton btnAnterior, btnSiguiente;
+    /**
+     * Panel de control para los diferentes botones adicionales
+     */
     private JPanel panelControles;
+    /**
+     * Zoom que aplicaremos para mostrar el PDF
+     */
     private double escala;
 
+    /**
+     * Constuctor principal
+     */
     public VisorPDF() {
         paginas = new ArrayList<>();
         paginaActual = 0;
@@ -33,6 +66,9 @@ public class VisorPDF extends JPanel {
         initComponents();
     }
 
+    /**
+     * Iniciamos los componentes
+     */
     private void initComponents() {
         setLayout(new BorderLayout());
 
@@ -105,8 +141,7 @@ public class VisorPDF extends JPanel {
         renderizador = new PDFRenderer(documento);
         paginas.clear();
 
-        // Renderizar todas las páginas (para PDFs pequeños)
-        // Para PDFs grandes, considera renderizar bajo demanda
+        // Renderizar todas las páginas
         for (int i = 0; i < documento.getNumberOfPages(); i++) {
             BufferedImage imagen = renderizador.renderImageWithDPI(i, 150);
             paginas.add(imagen);

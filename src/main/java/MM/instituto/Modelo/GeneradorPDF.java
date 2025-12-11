@@ -172,6 +172,9 @@ public class GeneradorPDF {
 
     /**
      * Abre un diálogo para seleccionar ubicación y genera el PDF
+     * @param tabla tabla a generar en el pdf
+     * @param tituloTabla titulo de la tabla
+     * @param parent componente recipiente o padre
      */
     public static void generarPDFConDialogo(JTable tabla, String tituloTabla, Component parent) {
         JFileChooser fileChooser = new JFileChooser();
@@ -216,6 +219,7 @@ public class GeneradorPDF {
 
     /**
      * Abre un archivo con la aplicación predeterminada del sistema
+     * @param ruta ruta del archivo para abrir
      */
     private static void abrirArchivo(String ruta) {
         try {
@@ -224,19 +228,6 @@ public class GeneradorPDF {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * Clase auxiliar para manejar información de tablas
-     */
-    public static class TablaInfo {
-        public JTable tabla;
-        public String titulo;
-
-        public TablaInfo(JTable tabla, String titulo) {
-            this.tabla = tabla;
-            this.titulo = titulo;
         }
     }
 }

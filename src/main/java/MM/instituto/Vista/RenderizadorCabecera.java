@@ -4,6 +4,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
+/**
+ * Clase encargada de estilizar las cabeceras de las tablas
+ */
 public class RenderizadorCabecera extends DefaultTableCellRenderer {
     public RenderizadorCabecera() {
         setHorizontalAlignment(CENTER);

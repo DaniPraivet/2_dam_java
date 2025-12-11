@@ -6,13 +6,28 @@ import MM.instituto.Modelo.Alumno;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Ventana emergente para agregar un nuevo alumno
+ */
 public class VentanaAgregarAlumno extends JFrame {
+    /**
+     * Componente padre
+     */
     private VentanaPrincipal ventanaPrincipal;
+    /**
+     * Controlador para acceder a los métodos de la base de datos
+     */
     private Controlador controlador;
+    // Campos para el usuario
     private JTextField txtNombre, txtDireccion, txtEstadoMatricula;
     private JCheckBox chkCarnet;
     private JButton btnGuardar, btnCancelar;
 
+    /**
+     * Constructor principal
+     * @param ventanaPrincipal componente padre
+     * @param controlador controlador de la base de datos
+     */
     public VentanaAgregarAlumno(VentanaPrincipal ventanaPrincipal, Controlador controlador) {
         this.ventanaPrincipal = ventanaPrincipal;
         this.controlador = controlador;
@@ -52,6 +67,9 @@ public class VentanaAgregarAlumno extends JFrame {
         btnCancelar.addActionListener(e -> dispose());
     }
 
+    /**
+     * Método que comprueba si se han rellenado todos los campos
+     */
     private void guardarAlumno() {
         String nombre = txtNombre.getText();
         String direccion = txtDireccion.getText();

@@ -102,7 +102,7 @@ public class GestorPDF {
     /**
      * Genera un PDF con múltiples tablas
      */
-    public void generarPDFMultiplesTablas(String titulo, GeneradorPDF.TablaInfo... tablas) {
+    public void generarPDFMultiplesTablas(String titulo, TablaInfo... tablas) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Guardar PDF");
         fileChooser.setSelectedFile(new File(titulo.replaceAll("\\s+", "_") + ".pdf"));

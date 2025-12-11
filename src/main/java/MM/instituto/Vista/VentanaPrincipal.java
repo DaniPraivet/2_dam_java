@@ -342,10 +342,10 @@ public class VentanaPrincipal extends JFrame {
      * Genera un reporte completo con todas las tablas
      */
     private void generarReporteCompleto() {
-        GeneradorPDF.TablaInfo[] tablas = {
-                new GeneradorPDF.TablaInfo(tablaAlumnos, "Alumnos"),
-                new GeneradorPDF.TablaInfo(tablaAsignaturas, "Asignaturas"),
-                new GeneradorPDF.TablaInfo(tablaMatriculas, "Matrículas")
+        TablaInfo[] tablas = {
+                new TablaInfo(tablaAlumnos, "Alumnos"),
+                new TablaInfo(tablaAsignaturas, "Asignaturas"),
+                new TablaInfo(tablaMatriculas, "Matrículas")
         };
 
         gestorPDF.generarPDFMultiplesTablas("Reporte Completo del Sistema Escolar", tablas);

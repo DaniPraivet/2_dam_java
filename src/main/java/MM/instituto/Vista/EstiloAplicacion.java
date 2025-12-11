@@ -3,6 +3,9 @@ package MM.instituto.Vista;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Clase para modificar rápidamente el estilo que vayamos a usar en nuestro programa
+ */
 public class EstiloAplicacion {
     public static void aplicarEstilo() {
         try {

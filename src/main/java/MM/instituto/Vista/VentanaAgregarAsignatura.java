@@ -6,6 +6,9 @@ import MM.instituto.Modelo.Asignatura;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Ventana emergente para agregar una nueva asignatura
+ */
 public class VentanaAgregarAsignatura extends JFrame {
     private JTextField txtNombre;
     private JTextField txtCurso;

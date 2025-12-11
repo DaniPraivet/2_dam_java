@@ -1,11 +1,33 @@
 package MM.instituto.Modelo;
 
+/**
+ * Clase matricula
+ */
 public class Matricula {
+    /**
+     * Identificador de la matricula
+     */
     int id;
+    /**
+     * Alumno asignado a la matricula
+     */
     Alumno alumno;
-    Asignatura asignatura   ;
+    /**
+     * Asignatura asignada a la matricula
+     */
+    Asignatura asignatura;
+    /**
+     * Nota asignada a la matricula
+     */
     double nota;
 
+    /**
+     * Constructor principal
+     * @param id identificador
+     * @param alumno alumno
+     * @param asignatura asignatura
+     * @param nota nota
+     */
     public Matricula(int id, Alumno alumno, Asignatura asignatura, double nota) {
         this.id = id;
         this.alumno = alumno;
