@@ -25,6 +25,11 @@ public class GeneradorPDF {
 
     /**
      * Genera un PDF a partir de un JTable
+     * @param tabla tabla a partir de la que queramos generar el PDF
+     * @param titulo titulo del PDF
+     * @param rutaDestino URL destino del PDF
+     * @throws DocumentException si ha habido un problema en la generación del documento
+     * @throws IOException si ha habido un problema con el bufer de entrada o salida
      */
     public static void generarPDFDesdeTabla(JTable tabla, String titulo, String rutaDestino) throws DocumentException, IOException {
         Document documento = new Document(PageSize.A4.rotate()); // Horizontal para tablas anchas
@@ -62,6 +67,8 @@ public class GeneradorPDF {
 
     /**
      * Crea una PdfPTable a partir de un JTable
+     * @param tabla tabla a generar para el pdf
+     * @return tabla preparada para ser usada directamente en el pdf
      */
     private static PdfPTable crearTablaPDF(JTable tabla) {
         int numColumnas = tabla.getColumnCount();
@@ -118,6 +125,14 @@ public class GeneradorPDF {
 
     /**
      * Genera un PDF con múltiples tablas
+     * Uso "varargs" en la variable tablas para facilitarle al usuario
+     * ya que puede poner una o varias tablas sin tener que facilitar un
+     * array de estas o una lista.
+     * @param titulo titulo del PDF
+     * @param rutaDestino url destino del pdf
+     * @param tablas puede ser una o varias tablas
+     * @throws DocumentException si ha habido un problema en la generación del documento
+     * @throws IOException si ha habido un problema con el bufer de entrada o salida
      */
     public static void generarPDFConMultiplesTablas(String titulo, String rutaDestino, TablaInfo... tablas)
             throws DocumentException, IOException {

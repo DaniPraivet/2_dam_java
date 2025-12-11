@@ -1,12 +1,38 @@
 package MM.instituto.Modelo;
 
+/**
+ * Clase alumno
+ */
 public class Alumno {
+    /**
+     * Id del alumno
+     */
     int id;
+    /**
+     * Nombre del alumno
+     */
     String nombre;
+    /**
+     * Dirección o domicilio del alumno
+     */
     String direccion;
+    /**
+     * Estado de la matrícula del alumno
+     */
     String estadoMatricula;
+    /**
+     * Si el alumno tiene carnet de conducir o no
+     */
     boolean carnetConducir;
 
+    /**
+     * Constructor base de la clase alumno
+     * @param id id del alumno
+     * @param nombre nombre del alumno
+     * @param direccion dirección o domicilio del alumno
+     * @param estadoMatricula estado de la matricula del alumno
+     * @param carnetConducir si tiene carnet de conducir o no
+     */
     public Alumno(int id, String nombre, String direccion, String estadoMatricula, int carnetConducir) {
         this.id = id;
         this.nombre = nombre;

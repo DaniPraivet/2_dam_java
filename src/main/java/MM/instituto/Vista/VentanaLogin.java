@@ -1,6 +1,6 @@
 package MM.instituto.Vista;
 
-import MM.instituto.ControladorBBDD.ConexionBD;
+import MM.instituto.Modelo.ConexionDAOInstituto;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,7 +73,7 @@ public class VentanaLogin extends JFrame {
                 String usuario = txtUsuario.getText();
                 String contrasena = new String(txtContrasena.getPassword());
 
-                if (ConexionBD.validarUsuario(usuario, contrasena)) {
+                if (ConexionDAOInstituto.validarUsuario(usuario, contrasena)) {
                     JOptionPane.showMessageDialog(VentanaLogin.this,
                             "¡Bienvenido " + usuario + "!", "Login Exitoso",
                             JOptionPane.INFORMATION_MESSAGE);

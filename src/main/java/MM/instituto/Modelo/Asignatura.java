@@ -1,10 +1,28 @@
 package MM.instituto.Modelo;
 
+/**
+ * Clase asignatura
+ */
 public class Asignatura {
+    /**
+     * Identificador de la asignatura
+     */
     int id;
+    /**
+     * Nombre de la asignatura
+     */
     String nombre;
+    /**
+     * Curso en el que se imparte la asignatura
+     */
     int curso;
 
+    /**
+     * Constructor de la clase asignatura
+     * @param id identificador de la asignatura
+     * @param nombre nombre de la asignatura
+     * @param curso curso en el que se imparte la asignatura
+     */
     public Asignatura(int id, String nombre, int curso) {
         this.id = id;
         this.nombre = nombre;

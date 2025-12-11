@@ -4,11 +4,27 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase que realiza las operaciones a la base de datos
+ */
 public class ConexionDAOInstituto {
+    /**
+     * URL que contiene el socket y a que base de datos vamos a dirigirnos
+     */
     private static final String URL = "jdbc:mysql://localhost:3306/instituto";
+    /**
+     * Usuario que vamos a usar
+     */
     private static final String USER = "root";
+    /**
+     * Contraseña del usuario
+     */
     private static final String PASSWORD = "usuario";
 
+    /**
+     * Obtenemos la lista de alumnos de la base de datos
+     * @return lista de alumnos
+     */
     public static List<Alumno> obtenerAlumnos() {
         List<Alumno> alumnos = new ArrayList<>();
         String sql = "SELECT id, nombre, direccion, estado_matricula, carnet_conducir FROM alumno";
@@ -30,6 +46,10 @@ public class ConexionDAOInstituto {
         return alumnos;
     }
 
+    /**
+     * Mediante una consulta SELECT obtenemos la lista de las asignaturas
+     * @return lista de las asignaturas
+     */
     public static List<Asignatura> obtenerAsignaturas() {
         List<Asignatura> asignaturas = new ArrayList<>(); // Eliminar variable estática
         try (Connection conexionBD = conectarseBD();
@@ -48,6 +68,10 @@ public class ConexionDAOInstituto {
         return asignaturas;
     }
 
+    /**
+     *
+     * @return Lista de las asignaturas
+     */
     public static List<Matricula> obtenerMatriculas() {
         List<Matricula> matriculas = new ArrayList<>(); // Eliminar variable estática
         try (Connection conexionBD = conectarseBD();
@@ -67,6 +91,11 @@ public class ConexionDAOInstituto {
         return matriculas;
     }
 
+    /**
+     *
+     * @param idAlumno id del alumno a encontrar
+     * @return alumno
+     */
     public static Alumno obtenerAlumnoPorId(int idAlumno) {
         String sql = "SELECT id, nombre, direccion, estado_matricula, carnet_conducir FROM alumno WHERE id = ?";
         try (Connection conn = conectarseBD();
@@ -87,6 +116,11 @@ public class ConexionDAOInstituto {
         return null;
     }
 
+    /**
+     *
+     * @param idAsignatura id de la asignatura a encontrar
+     * @return asignatura
+     */
     public static Asignatura obtenerAsignatura(int idAsignatura) {
         String sql = "SELECT id, nombre, curso FROM asignatura WHERE id = ?";
         try (Connection conn = conectarseBD();
@@ -105,6 +139,11 @@ public class ConexionDAOInstituto {
         return null;
     }
 
+    /**
+     *
+     * @param a alumno a insertar
+     * @return verdadero o falso dependiendo del éxito del procedimiento o fracaso
+     */
     public static boolean insertarAlumno(Alumno a) {
         if (a == null || a.getNombre() == null || a.getNombre().trim().isEmpty()) {
             return false;
@@ -132,6 +171,11 @@ public class ConexionDAOInstituto {
         return false;
     }
 
+    /**
+     *
+     * @param idAlumno id del alumno a eliminar
+     * @return verdadero o falso dependiendo del éxito del procedimiento o fracaso
+     */
     public static boolean eliminarAlumno(int idAlumno) {
         String sql = "DELETE FROM alumno WHERE id = ?";
         try (Connection conn = conectarseBD();
@@ -144,6 +188,11 @@ public class ConexionDAOInstituto {
         }
     }
 
+    /**
+     *
+     * @param a asignatura a insertar
+     * @return verdadero o falso dependiendo del éxito del procedimiento o fracaso
+     */
     public static boolean insertarAsignatura(Asignatura a) {
         boolean resultado = false;
         String consulta = "INSERT INTO asignatura (nombre, curso) VALUES (?, ?)";
@@ -158,6 +207,11 @@ public class ConexionDAOInstituto {
         return resultado;
     }
 
+    /**
+     *
+     * @param idAsignatura id de la asignatura a eliminar
+     * @return verdadero o falso dependiendo del éxito del procedimiento o fracaso
+     */
     public static boolean eliminarAsignatura(int idAsignatura) {
         String sql = "DELETE FROM asignatura WHERE id = ?";
         try (Connection conn = conectarseBD();
@@ -170,10 +224,20 @@ public class ConexionDAOInstituto {
         }
     }
 
+    /**
+     * Intenta conectarse a la base de datos mediante el un URL usuario y contraseña establecidos previamente
+     * @return la conexion con el servidor
+     * @throws SQLException en caso de que ocurra un error se lanza una excepcion tipo SQL
+     */
     public static Connection conectarseBD() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
+    /**
+     *
+     * @param idAlumno id del alumno a buscar
+     * @return lista de las matriculas pertenecientes al alumno
+     */
     public static List<Matricula> obtenerMatriculasPorAlumno(int idAlumno) {
         List<Matricula> lista = new ArrayList<>();
         String sql = """
@@ -217,6 +281,11 @@ public class ConexionDAOInstituto {
         return lista;
     }
 
+    /**
+     *
+     * @param m matricula a insertar
+     * @return verdadero o falso dependiendo del éxito del procedimiento o fracaso
+     */
     public static boolean insertarMatricula(Matricula m) {
         String sql = "INSERT INTO matricula (id_alumno, id_asignatura, nota) VALUES (?, ?, ?)";
         try (Connection conn = conectarseBD();
@@ -231,6 +300,11 @@ public class ConexionDAOInstituto {
         }
     }
 
+    /**
+     *
+     * @param idAsignatura id de la asignatura a buscar
+     * @return lista de las matriculas pertenecientes a esa asignatura
+     */
     public static List<Matricula> obtenerMatriculasPorAsignatura(int idAsignatura) {
         List<Matricula> lista = new ArrayList<>();
         String sql = """
@@ -274,6 +348,12 @@ public class ConexionDAOInstituto {
         return lista;
     }
 
+    /**
+     *
+     * @param idAlumno id del alumno perteneciente a la matricula
+     * @param idAsignatura id de la asignatura perteneciente a la matricula
+     * @return verdadero o falso dependiendo del éxito del procedimiento o fracaso
+     */
     public static boolean eliminarMatricula(int idAlumno, int idAsignatura) {
         String sql = "DELETE FROM matricula WHERE id_alumno = ? AND id_asignatura = ?";
         try (Connection conn = conectarseBD();
@@ -283,6 +363,32 @@ public class ConexionDAOInstituto {
             int filasAfectadas = stmt.executeUpdate();
             return filasAfectadas > 0;
         } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Comprueba si el usuario y la contrasela están en la tabla de usuarios
+     * @param usuario Nombre del usuario para iniciar sesión
+     * @param contrasena Contraseña del usuario
+     * @return Verdadero o falso en caso de que se encuentre o no
+     */
+    public static boolean validarUsuario(String usuario, String contrasena) {
+        String sql = "SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?";
+
+        try (Connection conn = conectarseBD();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, usuario);
+            pstmt.setString(2, contrasena);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next(); // Devuelve verdadero si se encuentra un registro
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al validar usuario: " + e.getMessage());
             e.printStackTrace();
             return false;
         }

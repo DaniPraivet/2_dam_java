@@ -180,7 +180,7 @@ public class VentanaPrincipal extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         String[] columnas = { "Nombre", "Dirección", "Estado Matrícula", "Carnet" };
         tablaAlumnos = new JTable(new DefaultTableModel(columnas, 0));
-        TablaAlumnosModel.aplicarEstiloCabeceras(tablaAlumnos);
+        RenderizadorCabecera.aplicarEstiloCabeceras(tablaAlumnos);
         JScrollPane scrollPane = new JScrollPane(tablaAlumnos);
         panel.add(scrollPane, BorderLayout.CENTER);
         return panel;
@@ -190,7 +190,7 @@ public class VentanaPrincipal extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         String[] columnas = { "Nombre", "Curso" };
         tablaAsignaturas = new JTable(new DefaultTableModel(columnas, 0));
-        TablaAlumnosModel.aplicarEstiloCabeceras(tablaAsignaturas);
+        RenderizadorCabecera.aplicarEstiloCabeceras(tablaAsignaturas);
         JScrollPane scrollPane = new JScrollPane(tablaAsignaturas);
         panel.add(scrollPane, BorderLayout.CENTER);
         return panel;
@@ -200,7 +200,7 @@ public class VentanaPrincipal extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         String[] columnas = { "Alumno", "Asignatura", "Nota" };
         tablaMatriculas = new JTable(new DefaultTableModel(columnas, 0));
-        TablaAlumnosModel.aplicarEstiloCabeceras(tablaMatriculas);
+        RenderizadorCabecera.aplicarEstiloCabeceras(tablaMatriculas);
         JScrollPane scrollPane = new JScrollPane(tablaMatriculas);
         panel.add(scrollPane, BorderLayout.CENTER);
         return panel;
@@ -317,35 +317,6 @@ public class VentanaPrincipal extends JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una matrícula para eliminar");
         }
-    }
-
-    public void refrescarTablaAlumnos(Object[][] datos) {
-        cargarDatosAlumnos();
-    }
-
-    public void crearBarraHerramientas() {
-        JToolBar barraHerramientas = new JToolBar();
-
-        JButton btnGenerarPDF = new JButton("Generar PDF");
-        btnGenerarPDF.setToolTipText("Generar PDF de la tabla actual");
-        btnGenerarPDF.addActionListener(e -> generarPDFTablaActual());
-
-        JButton btnGenerarReporte = new JButton("Reporte Completo");
-        btnGenerarReporte.setToolTipText("Generar reporte PDF con todas las tablas");
-        btnGenerarReporte.addActionListener(e -> generarReporteCompleto());
-
-        JButton btnCargarPDF = new JButton("Cargar PDF");
-        btnCargarPDF.setToolTipText("Cargar PDF existente");
-        btnCargarPDF.addActionListener(e -> gestorPDF.cargarPDFConDialogo());
-
-        barraHerramientas.add(btnGenerarPDF);
-        barraHerramientas.addSeparator();
-        barraHerramientas.add(btnGenerarReporte);
-        barraHerramientas.addSeparator();
-        barraHerramientas.add(btnCargarPDF);
-        barraHerramientas.setFloatable(false);
-
-        panelPrincipal.add(barraHerramientas, BorderLayout.NORTH);
     }
 
     /**

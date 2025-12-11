@@ -8,9 +8,17 @@ import MM.instituto.Modelo.ConexionDAOInstituto;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Clase intermediaria que procesa los datos obtenidos en ConexionDAOInstituto
+ */
 public class Controlador {
 
     // ALUMNOS
+
+    /**
+     * Obtener la lista de alumnos de la base de datos
+     * @return retorna la lista de los alumnos
+     */
     public List<Alumno> obtenerAlumnos() {
         try {
             return ConexionDAOInstituto.obtenerAlumnos();
@@ -20,6 +28,11 @@ public class Controlador {
         }
     }
 
+    /**
+     * Insertar un nuevo alumno en la base de datos
+     * @param a Alumno a insertar
+     * @return verdadero o falso dependiendo del éxito del procedimiento o fracaso
+     */
     public boolean agregarAlumno(Alumno a) {
         if (a == null) {
             System.out.println("Error: Alumno nulo");
@@ -32,84 +45,69 @@ public class Controlador {
         return ConexionDAOInstituto.insertarAlumno(a);
     }
 
+    /**
+     * Eliminar un alumno de la base de datos
+     * @param idAlumno id del alumno a eliminar
+     * @return verdadero o falso dependiendo del éxito del procedimiento o fracaso
+     */
     public boolean eliminarAlumno(int idAlumno) {
         return ConexionDAOInstituto.eliminarAlumno(idAlumno);
     }
 
-    public void mostrarAlumnosPorNombre() {
-        List<Alumno> alumnos = obtenerAlumnos();
-        alumnos.sort(Comparator.comparing(Alumno::getNombre, String.CASE_INSENSITIVE_ORDER));
-        alumnos.forEach(System.out::println);
-    }
-
-    public Alumno obtenerAlumnoPorId(int idAlumno) {
-        Alumno alumno = ConexionDAOInstituto.obtenerAlumnoPorId(idAlumno);
-        if (alumno == null) {
-            System.out.println("Alumno con ID " + idAlumno + " no encontrado");
-        }
-        return alumno;
-    }
-
     // ASIGNATURAS
+
+    /**
+     * Obtener la lista de asignaturas de la base de datos
+     * @return la lista de las asignaturas
+     */
     public List<Asignatura> obtenerAsignaturas() {
         return ConexionDAOInstituto.obtenerAsignaturas();
     }
 
+    /**
+     * Inserta una asignatura a la base de datos
+     * @param a asignatura a agregar
+     * @return verdadero o falso dependiendo del éxito del procedimiento o fracaso
+     */
     public boolean agregarAsignatura(Asignatura a) {
         return ConexionDAOInstituto.insertarAsignatura(a);
     }
 
+    /**
+     * Eliminar una asignatura de la base de datos
+     * @param idAsignatura id de la asignatura a eliminar
+     * @return verdadero o falso dependiendo del éxito del procedimiento o fracaso
+     */
     public boolean eliminarAsignatura(int idAsignatura) {
         return ConexionDAOInstituto.eliminarAsignatura(idAsignatura);
     }
 
-    public int ultimoIdAsignaturas() {
-        List<Asignatura> asignaturas = obtenerAsignaturas();
-        if (asignaturas.isEmpty())
-            return 0;
-        return asignaturas.stream()
-                .mapToInt(Asignatura::getId)
-                .max()
-                .orElse(0);
-    }
-
-    public Asignatura obtenerAsignaturaPorId(int idAsignatura) {
-        return ConexionDAOInstituto.obtenerAsignatura(idAsignatura);
-    }
-
-    // Obtener promedio de notas por alumno
-    public double obtenerPromedioNotasPorAlumno(int idAlumno) {
-        List<Matricula> matriculas = obtenerMatriculasPorAlumno(idAlumno);
-        if (matriculas.isEmpty())
-            return 0.0;
-        return matriculas.stream()
-                .mapToDouble(Matricula::getNota)
-                .average()
-                .orElse(0.0);
-    }
-
-    // Obtener asignaturas de un alumno
-    public List<Asignatura> obtenerAsignaturasPorAlumno(int idAlumno) {
-        List<Matricula> matriculas = obtenerMatriculasPorAlumno(idAlumno);
-        return matriculas.stream()
-                .map(matricula -> obtenerAsignaturaPorId(matricula.getAsignatura().getId()))
-                .filter(asignatura -> asignatura != null)
-                .toList();
-    }
-
     // MATRICULAS
+
+    /**
+     * Devuelve una lista de las matrículas que pertenezcan a dicho alumno
+     * @param idAlumno id del alumno
+     * @return lista de las matriculas obtenidas
+     */
     public List<Matricula> obtenerMatriculasPorAlumno(int idAlumno) {
         return ConexionDAOInstituto.obtenerMatriculasPorAlumno(idAlumno);
     }
 
-    public List<Matricula> obtenerMatriculasPorAsignatura(int idAsignatura) {
-        return ConexionDAOInstituto.obtenerMatriculasPorAsignatura(idAsignatura);
-    }
-
+    /**
+     * Insertar una matricula en la base de datos
+     * @param m matricula a agregar
+     * @return verdadero o falso dependiendo del éxito del procedimiento o fracaso
+     */
     public boolean insertarMatricula(Matricula m) {
         return ConexionDAOInstituto.insertarMatricula(m);
     }
 
+    /**
+     * Eliminar una matricula en la base de datos
+     * @param idAlumno id del alumno perteneciente a la matricula
+     * @param idAsignatura id de la asignatura perteneciente a la matricula
+     * @return verdadero o falso dependiendo del éxito del procedimiento o fracaso
+     */
     public boolean eliminarMatricula(int idAlumno, int idAsignatura) {
         return ConexionDAOInstituto.eliminarMatricula(idAlumno, idAsignatura);
     }
