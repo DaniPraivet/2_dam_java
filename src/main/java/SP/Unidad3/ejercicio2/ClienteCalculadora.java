@@ -22,7 +22,7 @@ public class ClienteCalculadora {
 
 
     public static void main(String[] args) throws IOException {
-        Socket s = new Socket("172.26.11.77", PUERTO);
+        Socket s = new Socket("127.0.0.1", PUERTO);
         InputStream is = s.getInputStream();
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         PrintWriter out = new PrintWriter(s.getOutputStream(), true);

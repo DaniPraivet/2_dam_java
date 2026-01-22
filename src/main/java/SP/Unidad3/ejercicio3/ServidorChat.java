@@ -1,4 +1,4 @@
-package SP.Unidad3.ejercicio2;
+package SP.Unidad3.ejercicio3;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,18 +6,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.text.DateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Scanner;
 
-public class ServidorCalculadora {
+public class ServidorChat {
     public static final int PUERTO = 9797;
-
-    private static int[] calcularCuadrados(int... numeros) {
-        for (int i = 0; i < numeros.length; i++) {
-            numeros[i] *= numeros[i];
-        }
-        return numeros;
-    }
 
     public static void main(String[] args) throws IOException {
         ServerSocket servidor = new ServerSocket(PUERTO);
@@ -30,8 +23,8 @@ public class ServidorCalculadora {
             String linea;
 
             while ((linea = br.readLine()) != null) {
-                if (linea.equalsIgnoreCase("fin")) break;
-                out.println(Arrays.toString(calcularCuadrados(Integer.parseInt(linea))));
+                if (linea.equalsIgnoreCase(".")) break;
+                out.println(linea);
             }
             Scanner sc = new Scanner(System.in);
             if (sc.nextLine() != null) {
